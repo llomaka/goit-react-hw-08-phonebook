@@ -15,7 +15,13 @@ export default function SharedLayout() {
             <Outlet />
           </Suspense>
         </Container>
-        <ToastContainer />
+        <ToastContainer
+          position='top-center'
+          newestOnTop={true}
+          autoClose={3000}
+          style={{ fontSize: '20px' }}
+          theme='colored'
+        />
       </main>
     </>
   );
