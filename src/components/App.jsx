@@ -11,7 +11,6 @@ export default function App () {
     <div
       style={{
         height: '100vh',
-        color: '#010101'
       }}
     >
       <Routes>

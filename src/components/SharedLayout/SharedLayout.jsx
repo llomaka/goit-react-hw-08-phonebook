@@ -4,11 +4,23 @@ import Container from 'components/Container';
 import Notification from '../Notification';
 import { ToastContainer } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
+import MainHeader from 'components/MainHeader';
+import AuthNavigationBar from 'components/AuthNavigationBar';
+import UserMenu from 'components/UserMenu';
+import styles from './SharedLayout.module.css';
 
 export default function SharedLayout() {
   return (
     <>
-      <NavigationBar />
+      <MainHeader>
+        <Container>
+          <div className={styles.menuWrapper}>
+          <NavigationBar />
+          <AuthNavigationBar />
+          <UserMenu />
+          </div>
+        </Container>
+      </MainHeader>
       <main>
         <Container>
           <Suspense fallback={<Notification text='Loading Interface...' />}>

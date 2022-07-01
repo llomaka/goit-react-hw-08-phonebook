@@ -1,7 +1,11 @@
+import Header from "components/Header";
+import RegisterForm from "components/RegisterForm";
+
 export default function RegisterPage() {
   return (
     <>
-      <p>Resigter Page</p>
+      <Header text='New User Registration Form' />
+      <RegisterForm />
     </>
   );
 }
