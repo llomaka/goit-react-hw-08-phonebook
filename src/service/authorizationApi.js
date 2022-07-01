@@ -18,7 +18,7 @@ export const authorizationApi = createApi({
     getCurrentUserInfo: builder.query({
       query: (auth_token) => ({
         url: '/users/current',
-        token: auth_token,
+        headers: { Authorization: auth_token },
       }),
       providesTags: ['User']
     }),
@@ -42,7 +42,7 @@ export const authorizationApi = createApi({
       query: (auth_token) => ({
         url: '/users/logout',
         method: 'POST',
-        token: auth_token,
+        headers: { Authorization: auth_token },
       }),
       invalidatesTags: ['User'],
     }),
