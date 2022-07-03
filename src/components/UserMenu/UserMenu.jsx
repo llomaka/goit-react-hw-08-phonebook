@@ -6,7 +6,7 @@ export default function UserMenu() {
   console.log('data:', info, ';', 'error:', error, ';', 'isUninitialized:', isUninitialized, ';', 'isLoading', isLoading, ';', 'isSuccess:', isSuccess, ';', 'isError:', isError);
   const [loginUser, { data: { user: { name, token } } }] = useLoginUserMutation();
   const {data: currentUser} = useGetCurrentUserInfoQuery(token);
-  console.log(token);
+  console.log(token, loginUser, currentUser);
 
   function handleLogoutClick(token) {
     if (!token) return;
