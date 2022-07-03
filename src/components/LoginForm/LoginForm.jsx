@@ -10,9 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
-  const [loginUser, { data, error, isUninitialized, isLoading, isSuccess, isError }] = useLoginUserMutation();
-
-  console.log('data:', data, ';', 'error:', error, ';', 'isUninitialized:', isUninitialized, ';', 'isLoading', isLoading, ';', 'isSuccess:', isSuccess, ';', 'isError:', isError );
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -89,7 +87,6 @@ export default function LoginForm() {
           {!isLoading && <span>Register</span>}
         </button>
       </form>
-      {isSuccess && (<p>{JSON.stringify(data)}</p>)}
     </>
   );
 };

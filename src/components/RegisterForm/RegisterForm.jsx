@@ -12,9 +12,7 @@ export default function RegisterForm() {
   const nameInputId = nanoid();
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
-  const [createUser, { data, error, isUninitialized, isLoading, isSuccess, isError }] = useCreateUserMutation();
-
-  console.log('data:', data, ';', 'error:', error, ';', 'isUninitialized:', isUninitialized, ';', 'isLoading', isLoading, ';', 'isSuccess:', isSuccess, ';', 'isError:', isError );
+  const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
