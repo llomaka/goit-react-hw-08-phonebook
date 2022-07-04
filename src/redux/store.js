@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import contactsApi from '../service/contactsApi';
-import authorizationApi from '../service/authorizationApi';
+import authorizationApi from '../service/connectionsApi';
 import filterSlice from './filterSlice';
 
 const persistConfig = {

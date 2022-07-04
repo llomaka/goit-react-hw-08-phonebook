@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLoginUserMutation } from 'service/authorizationApi';
+// import { useLoginUserMutation } from 'redux/authorizationSlice';
 import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
-  const [loginUser, { isLoading }] = useLoginUserMutation();
+  // const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -28,7 +28,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser({ email, password });
+    // await loginUser({ email, password });
     // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
   };
@@ -81,10 +81,10 @@ export default function LoginForm() {
           className={styles.button}
           type='submit'
           name='submit_button'
-          disabled={isLoading}
+          // disabled={isLoading}
         >
-          {isLoading && <ClipLoader size={16} color='#fff' />}
-          {!isLoading && <span>Register</span>}
+          {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
+          {/* {!isLoading && <span>Register</span>} */}
         </button>
       </form>
     </>

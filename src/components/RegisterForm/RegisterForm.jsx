@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCreateUserMutation } from 'service/authorizationApi';
+// import { useCreateUserMutation } from 'redux/authorizationSlice';
 import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -12,7 +12,7 @@ export default function RegisterForm() {
   const nameInputId = nanoid();
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
-  const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
+  // const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -33,7 +33,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createUser({ name, email, password });
+    // await createUser({ name, email, password });
     // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
   };
@@ -105,13 +105,13 @@ export default function RegisterForm() {
           className={styles.button}
           type='submit'
           name='submit_button'
-          disabled={isLoading}
+          // disabled={isLoading}
         >
-          {isLoading && <ClipLoader size={16} color='#fff' />}
-          {!isLoading && <span>Register</span>}
+          {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
+          {/* {!isLoading && <span>Register</span>} */}
         </button>
       </form>
-      {isSuccess && (<p>{JSON.stringify(data)}</p>)}
+      {/* {isSuccess && (<p>{JSON.stringify(data)}</p>)} */}
     </>
   );
 };
