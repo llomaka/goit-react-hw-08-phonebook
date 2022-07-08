@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/246.5becab88.chunk.js","mappings":"wMAAe,SAASA,IACtB,OACE,+BACE","sources":["pages/ContactsPage.jsx"],"sourcesContent":["export default function ContactsPage() {\n  return (\n    <>\n      <p>Contacts Page</p>\n    </>\n  );\n}\n"],"names":["ContactsPage"],"sourceRoot":""}
