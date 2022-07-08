@@ -2,7 +2,7 @@ import { useState } from 'react';
 // import { useLoginUserMutation } from 'redux/authorizationSlice';
 import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 import styles from './LoginForm.module.css';
 
 export default function LoginForm() {
@@ -85,6 +85,7 @@ export default function LoginForm() {
         >
           {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
           {/* {!isLoading && <span>Register</span>} */}
+          Register
         </button>
       </form>
     </>
