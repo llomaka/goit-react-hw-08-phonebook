@@ -1,5 +1,7 @@
 import { useState } from 'react';
 // import { useCreateUserMutation } from 'redux/authorizationSlice';
+import { authOperations } from 'redux/authorization';
+import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
@@ -12,6 +14,7 @@ export default function RegisterForm() {
   const nameInputId = nanoid();
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
+  const dispatch = useDispatch();
   // const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
 
   const handleInputChange = event => {
@@ -33,6 +36,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(authOperations.createUser({ name, email, password }));
     // await createUser({ name, email, password });
     // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();

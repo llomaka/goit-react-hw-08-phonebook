@@ -1,6 +1,8 @@
 import { useState } from 'react';
 // import { useLoginUserMutation } from 'redux/authorizationSlice';
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { authOperations } from 'redux/authorization';
 // import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
 import styles from './LoginForm.module.css';
@@ -10,6 +12,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
+  const dispatch = useDispatch();
   // const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleInputChange = event => {
@@ -28,6 +31,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(authOperations.loginUser({ email, password }));
     // await loginUser({ email, password });
     // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
