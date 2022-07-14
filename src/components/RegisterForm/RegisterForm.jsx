@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 // import { useCreateUserMutation } from 'redux/authorizationSlice';
 import { authOperations } from 'redux/authorization';
 import { useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
 import styles from './RegisterForm.module.css';
@@ -11,9 +10,7 @@ export default function RegisterForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const nameInputId = nanoid();
-  const emailInputId = nanoid();
-  const passwordInputId = nanoid();
+  const id = useId();
   const dispatch = useDispatch();
   // const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
 
@@ -52,7 +49,7 @@ export default function RegisterForm() {
         <div className={styles.fields}>
           <label
             className={styles.label}
-            htmlFor={nameInputId}>
+            htmlFor={id + 'name'}>
             Name *
           </label>
           <input
@@ -62,7 +59,7 @@ export default function RegisterForm() {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            id={nameInputId}
+            id={id + 'name'}
             placeholder='Oleksandra Lomaka'
             onChange={handleInputChange}
             value={name}
@@ -71,7 +68,7 @@ export default function RegisterForm() {
         <div className={styles.fields}>
           <label
             className={styles.label}
-            htmlFor={emailInputId}>
+            htmlFor={id + 'email'}>
             Email *
           </label>
           <input
@@ -80,7 +77,7 @@ export default function RegisterForm() {
             name='email'
             title='Email address'
             required
-            id={emailInputId}
+            id={id + 'email'}
             placeholder='olomaka@gmail.com'
             onChange={handleInputChange}
             value={email}
@@ -89,7 +86,7 @@ export default function RegisterForm() {
         <div className={styles.fields}>
           <label
             className={styles.label}
-            htmlFor={passwordInputId}>
+            htmlFor={id + 'password'}>
             Password *
           </label>
           <input
@@ -99,7 +96,7 @@ export default function RegisterForm() {
             minLength={8}
             title='Password must be longer, than 8 characters, contain at least one number and one uppercase character, not contain spaces and parentheses'
             required
-            id={passwordInputId}
+            id={id + 'password'}
             placeholder='pa$sw0rD'
             onChange={handleInputChange}
             value={password}

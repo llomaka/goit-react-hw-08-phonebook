@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 // import { useLoginUserMutation } from 'redux/authorizationSlice';
-import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/authorization';
 // import { toast } from 'react-toastify';
@@ -10,8 +9,7 @@ import styles from './LoginForm.module.css';
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const emailInputId = nanoid();
-  const passwordInputId = nanoid();
+  const id = useId();
   const dispatch = useDispatch();
   // const [loginUser, { isLoading }] = useLoginUserMutation();
 
@@ -47,7 +45,7 @@ export default function LoginForm() {
         <div className={styles.fields}>
           <label
             className={styles.label}
-            htmlFor={emailInputId}>
+            htmlFor={id + 'email'}>
             Email *
           </label>
           <input
@@ -56,7 +54,7 @@ export default function LoginForm() {
             name='email'
             title='Email address'
             required
-            id={emailInputId}
+            id={id + 'email'}
             placeholder='olomaka@gmail.com'
             onChange={handleInputChange}
             value={email}
@@ -65,7 +63,7 @@ export default function LoginForm() {
         <div className={styles.fields}>
           <label
             className={styles.label}
-            htmlFor={passwordInputId}>
+            htmlFor={id + 'password'}>
             Password *
           </label>
           <input
@@ -75,7 +73,7 @@ export default function LoginForm() {
             minLength={8}
             title='Password must be longer, than 8 characters, contain at least one number and one uppercase character, not contain spaces and parentheses'
             required
-            id={passwordInputId}
+            id={id + 'password'}
             placeholder='pa$sw0rD'
             onChange={handleInputChange}
             value={password}

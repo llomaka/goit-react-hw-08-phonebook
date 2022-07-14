@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import styles from './ContactForm.module.css';
@@ -8,8 +7,7 @@ import styles from './ContactForm.module.css';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const nameInputId = nanoid();
-  const phoneInputId = nanoid();
+  const id = useId();
   const { data } = useGetAllContactsQuery();
   const [addContact, { isLoading }] = usePostContactMutation();
 
@@ -46,7 +44,7 @@ export default function ContactForm() {
       <div className={styles.fields}>
         <label
           className={styles.label}
-          htmlFor={nameInputId}>
+          htmlFor={id + 'name'}>
           Name *
         </label>
         <input
@@ -56,7 +54,7 @@ export default function ContactForm() {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          id={nameInputId}
+          id={id + 'name'}
           placeholder='John Smith'
           onChange={handleInputChange}
           value={name}
@@ -65,7 +63,7 @@ export default function ContactForm() {
       <div className={styles.fields}>
         <label
           className={styles.label}
-          htmlFor={phoneInputId}>
+          htmlFor={id + 'phone'}>
           Phone *
         </label>
         <input
@@ -75,7 +73,7 @@ export default function ContactForm() {
           pattern='\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}'
           title='Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
           required
-          id={phoneInputId}
+          id={id + 'phone'}
           placeholder='050-123-23-23'
           onChange={handleInputChange}
           value={phone}
