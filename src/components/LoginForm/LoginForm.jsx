@@ -87,7 +87,7 @@ export default function LoginForm() {
         >
           {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
           {/* {!isLoading && <span>Register</span>} */}
-          Register
+          Sign In
         </button>
       </form>
     </>
