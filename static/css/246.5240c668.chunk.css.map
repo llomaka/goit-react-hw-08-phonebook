@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/246.5240c668.chunk.css","mappings":"AAAA,oBACE,cAAe,CACf,eAAgB,CAChB,iBACF","sources":["components/Header/Header.module.css"],"sourcesContent":[".text {\n  font-size: 40px;\n  line-height: 1.5;\n  text-align: center;\n}\n"],"names":[],"sourceRoot":""}
