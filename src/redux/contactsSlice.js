@@ -14,14 +14,14 @@ const contactsSlice = createSlice({
       state.value = action.payload;
     },
     [contactsOperations.createContact.fulfilled](state, action) {
-      // state.value = action.payload;
+      state.value.push(action.payload);
 
     },
     [contactsOperations.editContact.fulfilled](state, action) {
       // state.value = action.payload;
     },
     [contactsOperations.deleteContact.fulfilled](state, action) {
-      // state.value = action.payload;
+      state.value = state.value.filter(contact => contact.id !== action.payload);
     },
   },
 })
