@@ -3,7 +3,7 @@ import { getAllContacts, createContact } from 'redux/contactsOperations';
 import { useSelector, useDispatch } from 'react-redux';
 import contactsSelector from 'redux/contactsSelectors';
 import { toast } from 'react-toastify';
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {

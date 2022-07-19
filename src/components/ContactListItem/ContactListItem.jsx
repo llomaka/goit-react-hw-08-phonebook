@@ -1,12 +1,11 @@
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 import { toast } from 'react-toastify';
-import { useDeleteContactByIdMutation } from 'service/contactsApi';
+import { deleteContact } from "redux/contactsOperations";
 import PropTypes from 'prop-types';
 import styles from './ContactListItem.module.css';
 
 export default function ContactListItem({ contact }) {
   const { name, number, id } = contact;
-  const [deleteContact, { isLoading }] = useDeleteContactByIdMutation();
 
   const handleClick = (id, name) => {
     deleteContact(id);
@@ -20,10 +19,10 @@ export default function ContactListItem({ contact }) {
         className={styles.button}
         type='button'
         onClick={() => handleClick(id, name)}
-        disabled={isLoading}
+        // disabled={isLoading}
       >
-        {isLoading && <ClipLoader size={16} color='#fff' />}
-        {!isLoading && <span>Delete</span>}
+        {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
+        <span>Delete</span>
       </button>
     </>
   );
