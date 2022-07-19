@@ -42,9 +42,11 @@ export const logoutUser = createAsyncThunk('logout', async () => {
   }
 });
 
-export const getCurrentUserInfo = createAsyncThunk('current', async persistedToken => {
+export const getCurrentUserInfo = createAsyncThunk('current', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.authorization.token;
   if (!persistedToken) {
-    throw Error('user');
+    return thunkAPI.rejectWithValue('No logged in user!');
   }
   token.set(persistedToken);
   try {

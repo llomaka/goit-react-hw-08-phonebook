@@ -1,12 +1,20 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { authOperations } from 'redux/authorization';
 import SharedLayout from './SharedLayout';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage'));
 
-export default function App () {
+export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUserInfo());
+  }, [dispatch]);
+
   return (
     <div
       style={{
