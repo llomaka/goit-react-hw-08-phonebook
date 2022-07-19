@@ -1,36 +1,42 @@
-import { useState, useId } from 'react';
-import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
+import { useState, useId, useEffect } from 'react';
+import { getAllContacts, createContact } from 'redux/contactsOperations';
+import { useSelector, useDispatch } from 'react-redux';
+import contactsSelector from 'redux/contactsSelectors';
 import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const id = useId();
-  const { data } = useGetAllContactsQuery();
-  const [addContact, { isLoading }] = usePostContactMutation();
+  const dispatch = useDispatch();
+  const contacts = useSelector(contactsSelector);
+
+  useEffect(() => {
+    dispatch(getAllContacts());
+  }, [dispatch]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     if (name === 'name') {
       setName(value);
-    } else if (name === 'phone') {
-      setPhone(value);
+    } else if (name === 'number') {
+      setNumber(value);
     }
   };
 
   const resetForm = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (data?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+    if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       return toast.warning(`${name} is already in Contacts List!`);
     }
-    await addContact({ name, phone });
+    dispatch(createContact({ name, number }));
     // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
   };
@@ -63,30 +69,30 @@ export default function ContactForm() {
       <div className={styles.fields}>
         <label
           className={styles.label}
-          htmlFor={id + 'phone'}>
+          htmlFor={id + 'number'}>
           Phone *
         </label>
         <input
           className={styles.input}
           type='tel'
-          name='phone'
+          name='number'
           pattern='\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}'
           title='Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
           required
-          id={id + 'phone'}
+          id={id + 'number'}
           placeholder='050-123-23-23'
           onChange={handleInputChange}
-          value={phone}
+          value={number}
         />
       </div>
       <button
         className={styles.button}
         type='submit'
         name='submit_button'
-        disabled={isLoading}
+        // disabled={isLoading}
       >
-        {isLoading && <ClipLoader size={16} color='#fff' />}
-        {!isLoading && <span>Add contact</span>}
+        {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
+        <span>Add contact</span>
       </button>
     </form>
   );

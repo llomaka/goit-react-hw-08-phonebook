@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import contactsOperations from '../service/connectionsApi';
+import contactsOperations from './contactsOperations';
 
 const initialState = {
   'value': [],
@@ -10,16 +10,18 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: {
     [contactsOperations.getAllContacts.fulfilled](state, action) {
+      console.log(action.payload);
       state.value = action.payload;
     },
     [contactsOperations.createContact.fulfilled](state, action) {
-      state.value = action.payload;
+      // state.value = action.payload;
+
     },
     [contactsOperations.editContact.fulfilled](state, action) {
-      state.value = action.payload;
+      // state.value = action.payload;
     },
     [contactsOperations.deleteContact.fulfilled](state, action) {
-      state.value = action.payload;
+      // state.value = action.payload;
     },
   },
 })

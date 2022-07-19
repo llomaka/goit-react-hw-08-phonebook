@@ -1,8 +1,7 @@
 import { useState, useId } from 'react';
-// import { useLoginUserMutation } from 'redux/authorizationSlice';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/authorization';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
 import styles from './LoginForm.module.css';
 
@@ -11,7 +10,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const id = useId();
   const dispatch = useDispatch();
-  // const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -30,8 +28,7 @@ export default function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(authOperations.loginUser({ email, password }));
-    // await loginUser({ email, password });
-    // toast.info(`${name} is successfully added to Contacts List!`);
+    toast.info(`User with ${email} is successfully logged in!`);
     resetForm();
   };
 

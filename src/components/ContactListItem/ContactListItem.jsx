@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './ContactListItem.module.css';
 
 export default function ContactListItem({ contact }) {
-  const { name, phone, id } = contact;
+  const { name, number, id } = contact;
   const [deleteContact, { isLoading }] = useDeleteContactByIdMutation();
 
   const handleClick = (id, name) => {
@@ -15,7 +15,7 @@ export default function ContactListItem({ contact }) {
 
   return (
     <>
-      <p>{name}: {phone}</p>
+      <p>{name}: {number}</p>
       <button
         className={styles.button}
         type='button'
@@ -33,7 +33,7 @@ ContactListItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
   }),
 };

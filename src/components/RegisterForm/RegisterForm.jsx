@@ -1,8 +1,7 @@
 import { useState, useId } from 'react';
-// import { useCreateUserMutation } from 'redux/authorizationSlice';
 import { authOperations } from 'redux/authorization';
 import { useDispatch } from 'react-redux';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
 import styles from './RegisterForm.module.css';
 
@@ -12,7 +11,6 @@ export default function RegisterForm() {
   const [password, setPassword] = useState('');
   const id = useId();
   const dispatch = useDispatch();
-  // const [createUser, { data, isLoading, isSuccess }] = useCreateUserMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -34,8 +32,7 @@ export default function RegisterForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(authOperations.createUser({ name, email, password }));
-    // await createUser({ name, email, password });
-    // toast.info(`${name} is successfully added to Contacts List!`);
+    toast.info(`User ${name} is successfully created!`);
     resetForm();
   };
 
