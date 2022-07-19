@@ -42,7 +42,7 @@ export const logoutUser = createAsyncThunk('logout', async () => {
   }
 });
 
-export const getCurrentUserInfo = createAsyncThunk('contacts', async persistedToken => {
+export const getCurrentUserInfo = createAsyncThunk('current', async persistedToken => {
   if (!persistedToken) {
     throw Error('user');
   }
