@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getAllContacts } from 'redux/contactsOperations';
+import { contactsOperations } from 'redux/contacts';
 import { useDispatch } from 'react-redux';
 import Header from "components/Header";
 import ContactForm from "components/ContactForm";
@@ -9,7 +9,7 @@ import ContactList from "components/ContactList";
 export default function ContactsPage() {
   const dispatch = useDispatch();
 
-  useEffect(() => {dispatch(getAllContacts())});
+  useEffect(() => {dispatch(contactsOperations.getAllContacts())});
 
   return (
     <>

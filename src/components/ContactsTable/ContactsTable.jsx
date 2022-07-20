@@ -2,8 +2,8 @@ import ContactForm from './ContactForm';
 // import ContactList from './ContactList';
 // import { useSelector } from 'react-redux';
 // import { useMemo } from 'react';
-// import contactsSelector from 'redux/contactsSelectors';
-// import filterSelector from 'redux/filterSelectors';
+// import {contactsSelector} from 'redux/contacts';
+// import {filterSelector} from 'redux/filter';
 import styles from './ContactsTable.module.css';
 
 export default function ContactsTable() {

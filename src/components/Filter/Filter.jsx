@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import filterSlice, { changeFilter } from 'redux/filterSlice';
+import { filterSelector } from 'redux/filter';
+import { changeFilter } from 'redux/filter/filterSlice';
 import { DebounceInput } from 'react-debounce-input';
 import styles from './Filter.module.css';
 
 export default function Filter() {
-  const filter = useSelector(state => state.filter.value);
-  const dispatch = useDispatch(filterSlice);
+  const filter = useSelector(filterSelector);
+  const dispatch = useDispatch();
 
   const onChange = event => dispatch(changeFilter(event.target.value));
 

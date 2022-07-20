@@ -1,8 +1,8 @@
 import ContactListItem from 'components/ContactListItem';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import contactsSelector from 'redux/contactsSelectors';
-import filterSelector from 'redux/filterSelectors';
+import { contactsSelector } from 'redux/contacts';
+import { filterSelector } from 'redux/filter';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 

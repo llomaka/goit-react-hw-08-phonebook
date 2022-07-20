@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import contactsReducer from './contactsSlice';
+import { contactsReducer } from './contacts';
 import { authReducer } from './authorization';
-import filterReducer from './filterSlice';
+import { filterReducer } from './filter';
 
 const filterPersistConfig = {
   key: 'filter',
