@@ -8,6 +8,11 @@ const initialState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
+  reducers: {
+    deleteReduxContact(state, action) {
+      state.value = state.value.filter(contact => contact.id !== action.payload);
+    }
+  },
   extraReducers: {
     [contactsOperations.getAllContacts.fulfilled](state, action) {
       state.value = action.payload;
@@ -20,11 +25,12 @@ const contactsSlice = createSlice({
       const editedItemIndex = state.value.findIndex(contact => contact.id === action.payload.id);
       state.value.splice(editedItemIndex, 1, action.payload);
     },
-    [contactsOperations.deleteContact.fulfilled](state, action) {
-      state.value = state.value.filter(contact => contact.id !== action.payload);
-    },
+    // [contactsOperations.deleteContact.fulfilled](state, action) {
+    //   console.log(action.payload);
+    //   state.value = state.value.filter(contact => contact.id !== action.payload);
+    // },
   },
 })
 
-export const { getAllContacts, createContact, editContact, deleteContact } = contactsSlice.actions;
+export const { getAllContacts, createContact, editContact, deleteReduxContact } = contactsSlice.actions;
 export default contactsSlice.reducer;

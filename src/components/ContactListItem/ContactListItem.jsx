@@ -2,15 +2,17 @@
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { contactsOperations } from 'redux/contacts';
+import { deleteReduxContact } from 'redux/contacts/contactsSlice';
 import PropTypes from 'prop-types';
 import styles from './ContactListItem.module.css';
 
 export default function ContactListItem({ contact }) {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const { name, number, id } = contact;
 
   const handleClick = (id, name) => {
     dispatch(contactsOperations.deleteContact(id));
+    dispatch(deleteReduxContact(id));
     toast.info(`Contact ${name} is successfully deleted!`);
   };
 
