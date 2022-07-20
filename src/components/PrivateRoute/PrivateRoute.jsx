@@ -3,7 +3,6 @@ import { Route, Navigate } from 'react-router-dom';
 import { authSelectors } from 'redux/authorization';
 
 export default function PrivateRoute({
-  children,
   navigateTo = '/',
   ...routeProps
 }) {
@@ -11,7 +10,7 @@ export default function PrivateRoute({
 
   return (
     <Route {...routeProps}>
-      {isLoggedIn ? children : <Navigate to={navigateTo} />}
+      {!isLoggedIn && <Navigate to={navigateTo} />}
     </Route>
   );
 }

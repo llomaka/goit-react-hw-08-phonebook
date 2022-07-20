@@ -3,7 +3,6 @@ import { Route, Navigate } from 'react-router-dom';
 import { authSelectors } from 'redux/authorization';
 
 export default function PublicRoute({
-  children,
   restricted = false,
   navigateTo = '/',
   ...routeProps
@@ -13,7 +12,7 @@ export default function PublicRoute({
 
   return (
     <Route {...routeProps}>
-      {shouldRedirect ? <Navigate to={navigateTo} /> : children}
+      {shouldRedirect && <Navigate to={navigateTo} />}
     </Route>
   );
 }
