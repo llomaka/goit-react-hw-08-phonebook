@@ -1,8 +1,10 @@
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useMemo } from 'react';
-import { useGetAllContactsQuery } from 'service/contactsApi';
+import contactsSelector from 'redux/contactsSelectors';
+import filterSelector from 'redux/filterSelectors';
+import { getAllContacts } from 'redux/contactsOperations';
 import styles from './ContactsTable.module.css';
 
 export default function ContactsTable() {

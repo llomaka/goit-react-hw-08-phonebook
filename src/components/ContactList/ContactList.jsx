@@ -1,14 +1,12 @@
 import ContactListItem from 'components/ContactListItem';
-import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import contactsSelector from 'redux/contactsSelectors';
 import filterSelector from 'redux/filterSelectors';
-import { getAllContacts } from 'redux/contactsOperations';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 
 export default function ContactList() {
-  const dispatch = useDispatch();
   const contacts = useSelector(contactsSelector);
   const filter = useSelector(filterSelector);
   const contactsList = useMemo(() =>
@@ -16,10 +14,6 @@ export default function ContactList() {
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
     ), [contacts, filter]);
-
-  useEffect(() => {
-    dispatch(getAllContacts());
-  }, [dispatch]);
 
   return (
     <ul>
@@ -41,7 +35,6 @@ ContactList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-      createdAt: PropTypes.string.isRequired,
     })
   )
 };

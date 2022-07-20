@@ -10,7 +10,6 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: {
     [contactsOperations.getAllContacts.fulfilled](state, action) {
-      console.log(action.payload);
       state.value = action.payload;
     },
     [contactsOperations.createContact.fulfilled](state, action) {
@@ -18,7 +17,8 @@ const contactsSlice = createSlice({
 
     },
     [contactsOperations.editContact.fulfilled](state, action) {
-      // state.value = action.payload;
+      const editedItemIndex = state.value.findIndex(contact => contact.id === action.payload.id);
+      state.value.splice(editedItemIndex, 1, action.payload);
     },
     [contactsOperations.deleteContact.fulfilled](state, action) {
       state.value = state.value.filter(contact => contact.id !== action.payload);

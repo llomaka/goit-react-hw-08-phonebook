@@ -1,5 +1,5 @@
-import { useState, useId, useEffect } from 'react';
-import { getAllContacts, createContact } from 'redux/contactsOperations';
+import { useState, useId } from 'react';
+import { createContact } from 'redux/contactsOperations';
 import { useSelector, useDispatch } from 'react-redux';
 import contactsSelector from 'redux/contactsSelectors';
 import { toast } from 'react-toastify';
@@ -12,10 +12,6 @@ export default function ContactForm() {
   const id = useId();
   const dispatch = useDispatch();
   const contacts = useSelector(contactsSelector);
-
-  useEffect(() => {
-    dispatch(getAllContacts());
-  }, [dispatch]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -37,7 +33,7 @@ export default function ContactForm() {
       return toast.warning(`${name} is already in Contacts List!`);
     }
     dispatch(createContact({ name, number }));
-    // toast.info(`${name} is successfully added to Contacts List!`);
+    toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
   };
 
