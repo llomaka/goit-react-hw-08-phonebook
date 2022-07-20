@@ -1,9 +1,6 @@
 import { useState, useId } from 'react';
-import { contactsOperations } from 'redux/contacts';
+import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import { useSelector, useDispatch } from 'react-redux';
-import { contactsSelector } from 'redux/contacts';
-import { toast } from 'react-toastify';
-// import ClipLoader from "react-spinners/ClipLoader";
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
@@ -11,7 +8,7 @@ export default function ContactForm() {
   const [number, setNumber] = useState('');
   const id = useId();
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsSelector);
+  const contacts = useSelector(contactsSelectors.contacts);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -30,10 +27,10 @@ export default function ContactForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
-      return toast.warning(`${name} is already in Contacts List!`);
+      // return toast.warning(`${name} is already in Contacts List!`);
     }
     dispatch(contactsOperations.createContact({ name, number }));
-    toast.info(`${name} is successfully added to Contacts List!`);
+    // toast.info(`${name} is successfully added to Contacts List!`);
     resetForm();
   };
 

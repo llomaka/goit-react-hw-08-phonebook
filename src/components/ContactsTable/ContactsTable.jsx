@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import {contactsSelector} from 'redux/contacts';
+import {contactsSelectors} from 'redux/contacts';
 import {filterSelector} from 'redux/filter';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 
 export default function ContactsTable() {
   const filter = useSelector(filterSelector);
-  const contacts = useSelector(contactsSelector);
+  const contacts = useSelector(contactsSelectors.contacts);
   const filteredContacstList = useMemo(() =>
     contacts
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))

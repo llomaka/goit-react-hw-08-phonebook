@@ -12,7 +12,7 @@ export default function Filter() {
 
     return (
       <>
-        <h2 className={styles.header}>Find contacts by name</h2>
+        <h2 className={styles.header}>Find contact by name</h2>
         <DebounceInput
           element='input'
           debounceTimeout={700}

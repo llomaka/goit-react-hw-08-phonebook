@@ -1,22 +1,22 @@
 import ContactListItem from 'components/ContactListItem';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { contactsSelector } from 'redux/contacts';
+import { contactsSelectors } from 'redux/contacts';
 import { filterSelector } from 'redux/filter';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 
 export default function ContactList() {
-  const contacts = useSelector(contactsSelector);
+  const contacts = useSelector(contactsSelectors.contacts);
   const filter = useSelector(filterSelector);
+  const isFetching = useSelector(contactsSelectors.isFetchingContacts);
   const contactsList = useMemo(() =>
     contacts
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
     ), [contacts, filter]);
 
-  return (
-    <ul>
+  return (!isFetching && <ul>
       {contactsList.map(contact =>
       (<li
         key={contact.id}

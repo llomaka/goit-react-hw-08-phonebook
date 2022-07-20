@@ -2,8 +2,6 @@ import { useState, useId } from 'react';
 import { authOperations } from 'redux/authorization';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-// import ClipLoader from "react-spinners/ClipLoader";
 import styles from './RegisterForm.module.css';
 
 export default function RegisterForm() {
@@ -34,7 +32,7 @@ export default function RegisterForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(authOperations.createUser({ name, email, password }));
-    toast.info(`User ${name} is successfully created!`);
+    // toast.info(`User ${name} is successfully created!`);
     resetForm();
     navigate('/contacts');
   };

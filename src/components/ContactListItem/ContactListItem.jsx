@@ -1,5 +1,3 @@
-// import ClipLoader from "react-spinners/ClipLoader";
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { contactsOperations } from 'redux/contacts';
 import { deleteReduxContact } from 'redux/contacts/contactsSlice';
@@ -13,7 +11,7 @@ export default function ContactListItem({ contact }) {
   const handleClick = (id, name) => {
     dispatch(contactsOperations.deleteContact(id));
     dispatch(deleteReduxContact(id));
-    toast.info(`Contact ${name} is successfully deleted!`);
+    // toast.info(`Contact ${name} is successfully deleted!`);
   };
 
   return (
