@@ -1,5 +1,6 @@
 import { useState, useId } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { authOperations } from 'redux/authorization';
 import { toast } from 'react-toastify';
 // import ClipLoader from "react-spinners/ClipLoader";
@@ -10,6 +11,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const id = useId();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -30,6 +32,7 @@ export default function LoginForm() {
     dispatch(authOperations.loginUser({ email, password }));
     toast.info(`User with ${email} is successfully logged in!`);
     resetForm();
+    navigate('/contacts');
   };
 
   return (

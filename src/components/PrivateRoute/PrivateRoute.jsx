@@ -1,16 +1,10 @@
+import LoginPage from 'pages/LoginPage';
 import { useSelector } from 'react-redux';
-import { Route, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { authSelectors } from 'redux/authorization';
 
-export default function PrivateRoute({
-  navigateTo = '/',
-  ...routeProps
-}) {
+export default function PrivateRoute() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
-  return (
-    <Route {...routeProps}>
-      {!isLoggedIn && <Navigate to={navigateTo} />}
-    </Route>
-  );
+  return isLoggedIn ? <Outlet /> : <LoginPage />;
 }
