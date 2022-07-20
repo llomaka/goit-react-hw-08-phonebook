@@ -1,15 +1,15 @@
 import { lazy, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
-import { authOperations } from 'redux/authorization';
+import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { authOperations, authSelectors } from 'redux/authorization';
 import SharedLayout from './SharedLayout';
-import PrivateRoute from './PrivateRoute';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage'));
 
 export default function App() {
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,11 +24,12 @@ export default function App() {
     >
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route element={<PrivateRoute />}>
-            <Route path='contacts' element={<ContactsPage />} />
-          </Route>
-          <Route path='login' element={<LoginPage />} />
-          <Route path='register' element={<RegisterPage />} />
+          {isLoggedIn && <Route path='contacts' element={<ContactsPage />} />}
+          {!isLoggedIn && <>
+            <Route path='login' element={<LoginPage />} />
+            <Route path='register' element={<RegisterPage />} />
+          </>}
+          <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} />} />
         </Route>
       </Routes>
     </div>
