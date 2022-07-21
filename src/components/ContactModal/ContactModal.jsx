@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { contactsOperations } from 'redux/contacts';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,34 +8,39 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useContactForm from 'hooks/useContactForm';
+import useSnackbar from 'hooks/useSnackbar';
+import Snackbar from '@mui/material/Snackbar';
 
-export default function ContactModal({ contactObj, openModal, handleModalClose, setOpenModal }) {
-  const { name, setName, number, setNumber, id, handleInputChange } = useContactForm();
+export default function ContactModal({ contactObj, openModal, setOpenModal }) {
+  const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
+  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setName(contactObj.name);
     setNumber(contactObj.number);
   }, [contactObj, setName, setNumber]);
 
-  // const handleEdit = (contactObj) => {
-  //   if ((name.toLowerCase() === contactObj.name.toLowerCase()) && (number === contactObj.number)) {
-  //     setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
-  //     return setOpen();
-  //   }
-  //   dispatch(contactsOperations.editContact(contactObj.id, name, number));
-  //   setMessage(`Contact ${name} information is successfully changed!`);
-  //   setOpen();
-  //   resetForm();
-  // };
-
-  const handleClose = () => {
+  const handleModalClose = (event) => {
+    if (event.target.name !== 'edit') {
+      setOpenModal(false);
+      resetForm();
+      return;
+    }
+    if ((name.toLowerCase() === contactObj.name.toLowerCase()) && (number === contactObj.number)) {
+      setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
+      return setOpen();
+    }
+    dispatch(contactsOperations.editContact({ id: contactObj.id, name, number }));
+    setMessage(`Contact ${name} information is successfully changed!`);
+    setOpen();
+    resetForm();
     setOpenModal(false);
-    // handleModalClose();
-  };
+};
 
   return (
     <div>
-      <Dialog open={openModal} onClose={handleClose}>
+      <Dialog open={openModal} onClose={handleModalClose}>
         <DialogTitle>Contact Information</DialogTitle>
         <DialogContent>
           <TextField
@@ -41,6 +48,7 @@ export default function ContactModal({ contactObj, openModal, handleModalClose, 
             margin='dense'
             id={id + 'name'}
             label='Full Name'
+            name='name'
             type='text'
             fullWidth
             variant='standard'
@@ -55,6 +63,7 @@ export default function ContactModal({ contactObj, openModal, handleModalClose, 
             margin='dense'
             id={id + 'number'}
             label='Phone Number'
+            name='number'
             type='tel'
             fullWidth
             variant='standard'
@@ -67,10 +76,11 @@ export default function ContactModal({ contactObj, openModal, handleModalClose, 
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Edit</Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleModalClose} name='edit'>Edit</Button>
+          <Button onClick={handleModalClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
+      <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
     </div>
   );
 }

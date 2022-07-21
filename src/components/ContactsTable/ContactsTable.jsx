@@ -44,6 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ContactsTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [contact, setContact] = useState({});
   const filter = useSelector(filterSelector);
   const contacts = useSelector(contactsSelectors.contacts);
   const filteredContacstList = useMemo(() =>
@@ -55,12 +56,9 @@ export default function ContactsTable() {
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
 
-  const handleEdit = () => {
+  const handleEdit = (contact) => {
+    setContact(contact);
     setOpenModal(true);
-  };
-
-  function handleModalClose() {
-    setOpenModal(false);
   };
 
   const handleDelete = (id, name) => {
@@ -93,16 +91,15 @@ export default function ContactsTable() {
           <TableBody>
             {filteredContacstList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map(contact => (
-                <StyledTableRow key={contact.id}>
-                  <TableCell component='th' scope='row'>{contact.name}</TableCell>
-                  <TableCell>{contact.number}</TableCell>
+              .map(item => (
+                <StyledTableRow key={item.id}>
+                  <TableCell component='th' scope='row'>{item.name}</TableCell>
+                  <TableCell>{item.number}</TableCell>
                   <TableCell align='right'>
                     <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
-                      <Button startIcon={<EditIcon />} onClick={() => handleEdit(contact)}>Edit</Button>
-                      <Button startIcon={<DeleteIcon />} onClick={() => handleDelete(contact.id, contact.name)}>Delete</Button>
+                      <Button startIcon={<EditIcon />} onClick={() => handleEdit(item)}>Edit</Button>
+                      <Button startIcon={<DeleteIcon />} onClick={() => handleDelete(item.id, item.name)}>Delete</Button>
                     </ButtonGroup>
-                    <ContactModal contactObj={contact} openModal={openModal} setOpenModal={setOpenModal} handleClose={handleModalClose} />
                   </TableCell>
                 </StyledTableRow>
               ))}
@@ -119,6 +116,7 @@ export default function ContactsTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
+      <ContactModal contactObj={contact} openModal={openModal} setOpenModal={setOpenModal} />
     </>
   );
 }
