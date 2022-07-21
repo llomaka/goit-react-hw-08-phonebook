@@ -1,16 +1,49 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import {contactsSelectors} from 'redux/contacts';
-import {filterSelector} from 'redux/filter';
+import { useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { contactsSelectors } from 'redux/contacts';
+import { contactsOperations } from 'redux/contacts';
+import { deleteReduxContact } from 'redux/contacts/contactsSlice';
+import { filterSelector } from 'redux/filter';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Snackbar from '@mui/material/Snackbar';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import useSnackbar from 'hooks/useSnackbar';
+import useContactForm from 'hooks/useContactForm';
+import ContactModal from 'components/ContactModal';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 export default function ContactsTable() {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const filter = useSelector(filterSelector);
   const contacts = useSelector(contactsSelectors.contacts);
   const filteredContacstList = useMemo(() =>
@@ -18,28 +51,74 @@ export default function ContactsTable() {
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
     ), [contacts, filter]);
+  const dispatch = useDispatch();
+  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { openModal, setOpenModal } = useContactForm();
+
+  const handleEdit = () => {
+    setOpenModal(true);
+  };
+
+  function handleModalClose() {
+    setOpenModal(false);
+  };
+
+  const handleDelete = (id, name) => {
+    dispatch(contactsOperations.deleteContact(id));
+    dispatch(deleteReduxContact(id));
+    setMessage(`Contact ${name} is successfully deleted!`);
+    setOpen();
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Full Name</TableCell>
-            <TableCell>Phone Number</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredContacstList.map(contact => (
-            <TableRow
-              key={contact.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{contact.name}</TableCell>
-              <TableCell>{contact.number}</TableCell>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 480 }} aria-label='contacts table' size='small'>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Full Name</StyledTableCell>
+              <StyledTableCell>Phone Number</StyledTableCell>
+              <StyledTableCell align='right'>Edit/Delete contact</StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {filteredContacstList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(contact => (
+                <StyledTableRow key={contact.id}>
+                  <TableCell component='th' scope='row'>{contact.name}</TableCell>
+                  <TableCell>{contact.number}</TableCell>
+                  <TableCell align='right'>
+                    <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
+                      <Button startIcon={<EditIcon />} onClick={() => handleEdit(contact)}>Edit</Button>
+                      <Button startIcon={<DeleteIcon />} onClick={() => handleDelete(contact.id, contact.name)}>Delete</Button>
+                    </ButtonGroup>
+                    <ContactModal contactObj={contact} openModal={openModal} setOpenModal={setOpenModal} handleClose={handleModalClose} />
+                  </TableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        component="div"
+        count={filteredContacstList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
+    </>
   );
 }

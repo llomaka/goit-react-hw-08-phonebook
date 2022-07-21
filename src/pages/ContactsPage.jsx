@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import Header from "components/Header";
 import ContactForm from "components/ContactForm";
 import Filter from "components/Filter";
-import ContactList from "components/ContactList";
 import ContactsTable from 'components/ContactsTable';
 
 export default function ContactsPage() {
@@ -17,7 +16,6 @@ export default function ContactsPage() {
       <Header text='Phonebook contacts'/>
       <ContactForm />
       <Filter />
-      <ContactList />
       <ContactsTable />
     </>
   );

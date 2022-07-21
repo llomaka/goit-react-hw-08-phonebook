@@ -1,36 +1,25 @@
-import { useState, useId } from 'react';
+import useContactForm from 'hooks/useContactForm';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import { useSelector, useDispatch } from 'react-redux';
+import Snackbar from '@mui/material/Snackbar';
+import useSnackbar from 'hooks/useSnackbar';
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const id = useId();
+  const { name, number, id, handleInputChange, resetForm } = useContactForm();
   const dispatch = useDispatch();
   const contacts = useSelector(contactsSelectors.contacts);
-
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
-    }
-  };
-
-  const resetForm = () => {
-    setName('');
-    setNumber('');
-  };
+  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
-      // return toast.warning(`${name} is already in Contacts List!`);
+      setMessage(`${name} is already in Contacts List!`);
+      return setOpen();
     }
     dispatch(contactsOperations.createContact({ name, number }));
-    // toast.info(`${name} is successfully added to Contacts List!`);
+    setMessage(`${name} is successfully added to Contacts List!`);
+    setOpen();
     resetForm();
   };
 
@@ -87,6 +76,7 @@ export default function ContactForm() {
         {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
         <span>Add contact</span>
       </button>
+      <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
     </form>
   );
 };

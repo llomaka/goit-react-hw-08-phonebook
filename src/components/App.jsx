@@ -24,7 +24,7 @@ export default function App() {
       }}
     >
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
+        <Route path="/*" element={<SharedLayout />}>
           {isLoggedIn && <Route path='contacts' element={<ContactsPage />} />}
           {!isLoggedIn && <>
             <Route path='login' element={<LoginPage />} />
