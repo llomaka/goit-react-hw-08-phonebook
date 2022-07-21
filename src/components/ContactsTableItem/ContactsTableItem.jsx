@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import TableCell from '@mui/material/TableCell';
 import { useSelector } from 'react-redux';
 import { contactsSelectors } from 'redux/contacts';
+import PropTypes from 'prop-types';
 
 export default function ContactsTableItem({ contact, handleEdit, handleDelete }) {
   const isDeleting = useSelector(contactsSelectors.isDeleting);
@@ -23,3 +24,13 @@ export default function ContactsTableItem({ contact, handleEdit, handleDelete })
     </>
   );
 }
+
+ContactsTableItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};

@@ -12,6 +12,7 @@ import useContactForm from 'hooks/useContactForm';
 import useSnackbar from 'hooks/useSnackbar';
 import Snackbar from '@mui/material/Snackbar';
 import EditIcon from '@mui/icons-material/Edit';
+import PropTypes from 'prop-types';
 
 export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
@@ -87,3 +88,13 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
     </>
   );
 }
+
+ContactModal.propTypes = {
+  contactObj: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  openModal: PropTypes.func.isRequired,
+  setOpenModal: PropTypes.func.isRequired
+};
