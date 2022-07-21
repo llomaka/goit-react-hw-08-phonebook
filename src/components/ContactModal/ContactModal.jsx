@@ -39,7 +39,7 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
 };
 
   return (
-    <div>
+    <>
       <Dialog open={openModal} onClose={handleModalClose}>
         <DialogTitle>Contact Information</DialogTitle>
         <DialogContent>
@@ -81,6 +81,6 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
         </DialogActions>
       </Dialog>
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
-    </div>
+    </>
   );
 }
