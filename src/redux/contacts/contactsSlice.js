@@ -4,7 +4,9 @@ import contactsOperations from './contactsOperations';
 const initialState = {
   'value': [],
   'isFetchingContacts': false,
-  'isDeletingContact': false,
+  'isCreating': false,
+  'isEditing': false,
+  'isDeleting': false,
 };
 
 const contactsSlice = createSlice({
@@ -29,22 +31,35 @@ const contactsSlice = createSlice({
     [contactsOperations.getAllContacts.rejected](state) {
       state.isFetchingContacts = false;
     },
+    [contactsOperations.createContact.pending](state) {
+      state.isCreating = true;
+    },
     [contactsOperations.createContact.fulfilled](state, action) {
       state.value.push(action.payload);
-
+      state.isCreating = false;
+    },
+    [contactsOperations.createContact.rejected](state) {
+      state.isCreating = false;
+    },
+    [contactsOperations.editContact.pending](state) {
+      state.isEditing = true;
     },
     [contactsOperations.editContact.fulfilled](state, action) {
       const editedItemIndex = state.value.findIndex(contact => contact.id === action.payload.id);
       state.value.splice(editedItemIndex, 1, action.payload);
+      state.isEditing = false;
+    },
+    [contactsOperations.editContact.rejected](state) {
+      state.isEditing = false;
     },
     [contactsOperations.deleteContact.pending](state) {
-      state.isDeletingContact = true;
+      state.isDeleting = true;
     },
     [contactsOperations.deleteContact.fulfilled](state) {
-      state.isDeletingContact = false;
+      state.isDeleting = false;
     },
     [contactsOperations.deleteContact.rejected](state) {
-      state.isDeletingContact = false;
+      state.isDeleting = false;
     },
   },
 })

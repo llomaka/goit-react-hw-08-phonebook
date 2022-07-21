@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { contactsOperations } from 'redux/contacts';
+import { useDispatch, useSelector } from 'react-redux';
+import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,11 +11,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useContactForm from 'hooks/useContactForm';
 import useSnackbar from 'hooks/useSnackbar';
 import Snackbar from '@mui/material/Snackbar';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
   const dispatch = useDispatch();
+  const isEditing = useSelector(contactsSelectors.isEditing);
 
   useEffect(() => {
     setName(contactObj.name);
@@ -40,7 +43,7 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
 
   return (
     <>
-      <Dialog open={openModal} onClose={handleModalClose}>
+      {name && <Dialog open={openModal} onClose={handleModalClose}>
         <DialogTitle>Contact Information</DialogTitle>
         <DialogContent>
           <TextField
@@ -76,10 +79,10 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} name='edit'>Edit</Button>
-          <Button onClick={handleModalClose}>Cancel</Button>
+          <LoadingButton startIcon={<EditIcon />} onClick={handleModalClose} name='edit' variant='contained' loading={isEditing}>Edit</LoadingButton>
+          <Button onClick={handleModalClose} variant='contained'>Cancel</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog>}
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
     </>
   );

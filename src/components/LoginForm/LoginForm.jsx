@@ -2,6 +2,8 @@ import { useState, useId } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { authOperations } from 'redux/authorization';
+import useSnackbar from 'hooks/useSnackbar';
+import Snackbar from '@mui/material/Snackbar';
 import styles from './LoginForm.module.css';
 
 export default function LoginForm() {
@@ -10,6 +12,7 @@ export default function LoginForm() {
   const id = useId();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -28,7 +31,8 @@ export default function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(authOperations.loginUser({ email, password }));
-    // toast.info(`User with ${email} is successfully logged in!`);
+    setMessage(`User with ${email} is successfully logged in!`);
+    setOpen();
     resetForm();
     navigate('/contacts');
   };
@@ -88,6 +92,7 @@ export default function LoginForm() {
           Sign In
         </button>
       </form>
+      <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
     </>
   );
 };

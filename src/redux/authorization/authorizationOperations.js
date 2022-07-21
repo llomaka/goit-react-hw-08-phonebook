@@ -19,6 +19,7 @@ export const createUser = createAsyncThunk('register', async (userObject) => {
     return data;
   } catch (error) {
     console.log(error.message);
+    alert('Authorization error');
   }
 });
 
@@ -29,6 +30,7 @@ export const loginUser = createAsyncThunk('login', async (userObject) => {
     return data;
   } catch (error) {
     console.log(error.message);
+    alert('Authorization error');
   }
 });
 
@@ -39,6 +41,7 @@ export const logoutUser = createAsyncThunk('logout', async () => {
     return data;
   } catch (error) {
     console.log(error.message);
+    alert('Authorization error');
   }
 });
 
@@ -53,6 +56,7 @@ export const getCurrentUserInfo = createAsyncThunk('current', async (_, thunkAPI
     const { data } = await axios.get('/users/current');
     return data;
   } catch (error) {
+    alert('Authorization error');
     return error;
   }
 });

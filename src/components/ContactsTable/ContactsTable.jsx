@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { contactsSelectors } from 'redux/contacts';
-import { contactsOperations } from 'redux/contacts';
+import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import { deleteReduxContact } from 'redux/contacts/contactsSlice';
 import { filterSelector } from 'redux/filter';
 import { styled } from '@mui/material/styles';
@@ -13,14 +12,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Snackbar from '@mui/material/Snackbar';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import useSnackbar from 'hooks/useSnackbar';
 import useContactForm from 'hooks/useContactForm';
 import ContactModal from 'components/ContactModal';
+import ContactsTableItem from 'components/ContactsTableItem';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -93,14 +89,11 @@ export default function ContactsTable() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(item => (
                 <StyledTableRow key={item.id}>
-                  <TableCell component='th' scope='row'>{item.name}</TableCell>
-                  <TableCell>{item.number}</TableCell>
-                  <TableCell align='right'>
-                    <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
-                      <Button startIcon={<EditIcon />} onClick={() => handleEdit(item)}>Edit</Button>
-                      <Button startIcon={<DeleteIcon />} onClick={() => handleDelete(item.id, item.name)}>Delete</Button>
-                    </ButtonGroup>
-                  </TableCell>
+                  <ContactsTableItem
+                    contact={item}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
                 </StyledTableRow>
               ))}
           </TableBody>
