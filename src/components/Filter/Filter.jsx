@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filterSelector } from 'redux/filter';
 import { changeFilter } from 'redux/filter/filterSlice';
+import Box from '@mui/material/Box';
 import { DebounceInput } from 'react-debounce-input';
 import styles from './Filter.module.css';
 
@@ -10,9 +11,14 @@ export default function Filter() {
 
   const onChange = event => dispatch(changeFilter(event.target.value));
 
-    return (
-      <>
-        <h2 className={styles.header}>Find contact by name</h2>
+  return (
+    <Box
+      sx={{
+        textAlign: 'center',
+        marginBottom: '15px',
+      }}
+    >
+      <h2 className={styles.header}>Find contact by name</h2>
         <DebounceInput
           element='input'
           debounceTimeout={700}
@@ -21,8 +27,7 @@ export default function Filter() {
           name='filter'
           onChange={onChange}
           value={filter}
-          />
-      </>
-    )
-};
-
+        />
+    </Box>
+  );
+}

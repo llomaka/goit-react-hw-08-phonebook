@@ -10,4 +10,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.87;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #767676;
 }

@@ -14,9 +14,7 @@
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  color: var(--primary-text-color);
+  font-family: 'Roboto', sans-serif;
 }
 
 .visually-hidden {
