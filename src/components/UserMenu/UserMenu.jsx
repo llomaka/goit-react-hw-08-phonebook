@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 
 export default function UserMenu() {
-  const username = useSelector(authSelectors.getUsername);
+  const email = useSelector(authSelectors.getUserEmail);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -18,7 +18,7 @@ export default function UserMenu() {
   return (
     <Toolbar sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
       <AccountCircleIcon />
-      <Typography>Welcome, {username}</Typography>
+      <Typography>Welcome, {email}</Typography>
       <Button onClick={logout} >Logout</Button>
     </Toolbar>
   );
