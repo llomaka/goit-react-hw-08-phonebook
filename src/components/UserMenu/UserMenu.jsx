@@ -1,6 +1,6 @@
 import { authSelectors, authOperations } from 'redux/authorization';
+import { changeFilter } from 'redux/filter/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import contactsApi from 'service/contactsApi';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ export default function UserMenu() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(contactsApi.util.resetApiState());
+    dispatch(changeFilter(''));
     dispatch(authOperations.logoutUser());
   };
 
@@ -19,7 +19,7 @@ export default function UserMenu() {
     <Toolbar sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
       <AccountCircleIcon />
       <Typography>Welcome, {username}</Typography>
-      <Button onClick={() => logout()} >Logout</Button>
+      <Button onClick={logout} >Logout</Button>
     </Toolbar>
   );
 }

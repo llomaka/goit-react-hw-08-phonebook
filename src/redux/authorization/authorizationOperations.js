@@ -18,7 +18,6 @@ export const createUser = createAsyncThunk('register', async (userObject, { reje
     token.set(data.token);
     return data;
   } catch (error) {
-    console.log(error.message);
     alert('Wrong user information! Please try again!');
     return rejectWithValue(error);
   }
@@ -30,7 +29,6 @@ export const loginUser = createAsyncThunk('login', async (userObject, { rejectWi
     token.set(data.token);
     return data;
   } catch (error) {
-    console.log(error.message);
     alert('Wrong login or password! Please try again!');
     return rejectWithValue(error);
   }

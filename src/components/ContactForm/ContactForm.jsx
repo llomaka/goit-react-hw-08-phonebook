@@ -10,12 +10,12 @@ import styles from './ContactForm.module.css';
 export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
-  const { data } = useGetAllContactsQuery();
+  const { data: contacts } = useGetAllContactsQuery();
   const [postContact, { isLoading }] = usePostContactMutation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (data?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+    if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       setMessage(`${name} is already in Contacts List!`);
       return setOpen();
     }

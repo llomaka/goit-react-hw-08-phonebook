@@ -5,23 +5,18 @@ import { authReducer } from './authorization';
 import { filterReducer } from './filter';
 import contactsApi from 'service/contactsApi';
 
-const filterPersistConfig = {
-  key: 'filter',
-  storage,
-}
 const authorizationPersistConfig = {
   key: 'authorization',
   storage,
   whitelist: ['token'],
 }
-const filterPersistedReducer = persistReducer(filterPersistConfig, filterReducer);
 const authorizationPersistedReducer = persistReducer(authorizationPersistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
     [contactsApi.reducerPath]: contactsApi.reducer,
     authorization: authorizationPersistedReducer,
-    filter: filterPersistedReducer,
+    filter: filterReducer,
   },
    middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

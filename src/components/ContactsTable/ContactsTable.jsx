@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useMemo, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { filterSelector } from 'redux/filter';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,6 +16,7 @@ import useContactForm from 'hooks/useContactForm';
 import ContactModal from 'components/ContactModal';
 import ContactsTableItem from 'components/ContactsTableItem';
 import { useGetAllContactsQuery, useDeleteContactByIdMutation } from 'service/contactsApi';
+import contactsApi from 'service/contactsApi';
 
 export default function ContactsTable() {
   const [page, setPage] = useState(0);
@@ -31,6 +32,11 @@ export default function ContactsTable() {
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
   const [deleteContact] = useDeleteContactByIdMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(contactsApi.util.resetApiState());
+  }, [dispatch]);
 
   const handleEdit = (contact) => {
     setContact(contact);
