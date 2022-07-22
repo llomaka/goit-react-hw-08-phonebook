@@ -1,6 +1,6 @@
 import { authSelectors, authOperations } from 'redux/authorization';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearContacts } from 'redux/contacts/contactsSlice';
+import contactsApi from 'service/contactsApi';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ export default function UserMenu() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(clearContacts());
+    dispatch(contactsApi.util.resetApiState());
     dispatch(authOperations.logoutUser());
   };
 

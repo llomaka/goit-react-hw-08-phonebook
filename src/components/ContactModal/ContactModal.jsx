@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
@@ -12,13 +10,14 @@ import useContactForm from 'hooks/useContactForm';
 import useSnackbar from 'hooks/useSnackbar';
 import Snackbar from '@mui/material/Snackbar';
 import EditIcon from '@mui/icons-material/Edit';
+import { useEditContactByIdMutation } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 
 export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
-  const dispatch = useDispatch();
-  const isEditing = useSelector(contactsSelectors.isEditing);
+  const [editContact, { isLoading }] = useEditContactByIdMutation();
+
 
   useEffect(() => {
     setName(contactObj.name);
@@ -35,7 +34,7 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
       setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
       return setOpen();
     }
-    dispatch(contactsOperations.editContact({ id: contactObj.id, name, number }));
+    editContact({ id: contactObj.id, name, number });
     setMessage(`Contact ${name} information is successfully changed!`);
     setOpen();
     resetForm();
@@ -80,7 +79,7 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
           />
         </DialogContent>
         <DialogActions>
-          <LoadingButton startIcon={<EditIcon />} onClick={handleModalClose} name='edit' variant='contained' loading={isEditing}>Edit</LoadingButton>
+          <LoadingButton startIcon={<EditIcon />} onClick={handleModalClose} name='edit' variant='contained' loading={isLoading}>Edit</LoadingButton>
           <Button onClick={handleModalClose} variant='contained'>Cancel</Button>
         </DialogActions>
       </Dialog>}

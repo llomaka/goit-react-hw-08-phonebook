@@ -30,6 +30,7 @@ export const loginUser = createAsyncThunk('login', async (userObject, { rejectWi
     return data;
   } catch (error) {
     console.log(error.message);
+    alert('Wrong login or password! Please try again!');
     return rejectWithValue(error);
   }
 });
@@ -40,7 +41,6 @@ export const logoutUser = createAsyncThunk('logout', async (_, { rejectWithValue
     token.unset();
     return data;
   } catch (error) {
-    console.log(error.message);
     return rejectWithValue(error);
   }
 });

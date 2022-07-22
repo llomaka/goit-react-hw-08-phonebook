@@ -1,56 +1,36 @@
 import { useMemo, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { contactsOperations, contactsSelectors } from 'redux/contacts';
-import { deleteReduxContact } from 'redux/contacts/contactsSlice';
+import { useSelector } from 'react-redux';
 import { filterSelector } from 'redux/filter';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
+import StyledTableCell from 'components/StyledTableCell';
+import StyledTableRow from 'components/StyledTableRow';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 import useSnackbar from 'hooks/useSnackbar';
 import useContactForm from 'hooks/useContactForm';
 import ContactModal from 'components/ContactModal';
 import ContactsTableItem from 'components/ContactsTableItem';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+import { useGetAllContactsQuery, useDeleteContactByIdMutation } from 'service/contactsApi';
 
 export default function ContactsTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [contact, setContact] = useState({});
   const filter = useSelector(filterSelector);
-  const contacts = useSelector(contactsSelectors.contacts);
-  const filteredContacstList = useMemo(() =>
-    contacts
+  const { data = [] } = useGetAllContactsQuery();
+  const filteredContactsList = useMemo(() =>
+    data
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
-    ), [contacts, filter]);
-  const dispatch = useDispatch();
+    ), [data, filter]);
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
+  const [deleteContact] = useDeleteContactByIdMutation();
 
   const handleEdit = (contact) => {
     setContact(contact);
@@ -58,8 +38,7 @@ export default function ContactsTable() {
   };
 
   const handleDelete = (id, name) => {
-    dispatch(contactsOperations.deleteContact(id));
-    dispatch(deleteReduxContact(id));
+    deleteContact(id);
     setMessage(`Contact ${name} is successfully deleted!`);
     setOpen();
   };
@@ -85,7 +64,7 @@ export default function ContactsTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredContacstList
+            {filteredContactsList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(item => (
                 <StyledTableRow key={item.id}>
@@ -102,7 +81,7 @@ export default function ContactsTable() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
-        count={filteredContacstList.length}
+        count={filteredContactsList.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

@@ -5,12 +5,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
-import { contactsSelectors } from 'redux/contacts';
+// import { useSelector } from 'react-redux';
+// import { contactsSelectors } from 'redux/contacts';
+import { useDeleteContactByIdMutation } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 
 export default function ContactsTableItem({ contact, handleEdit, handleDelete }) {
-  const isDeleting = useSelector(contactsSelectors.isDeleting);
+  // const isDeleting = useSelector(contactsSelectors.isDeleting);
+  const [, { isLoading }] = useDeleteContactByIdMutation();
+  // console.log(deleteContact);
 
   return (
     <>
@@ -27,7 +30,7 @@ export default function ContactsTableItem({ contact, handleEdit, handleDelete })
       <TableCell align='right'>
         <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
           <Button startIcon={<EditIcon />} onClick={() => handleEdit(contact)} variant='outlined'>Edit</Button>
-          <LoadingButton startIcon={<DeleteIcon />} onClick={() => handleDelete(contact.id, contact.name)} variant='contained' loading={isDeleting}>Delete</LoadingButton>
+          <LoadingButton startIcon={<DeleteIcon />} onClick={() => handleDelete(contact.id, contact.name)} variant='contained' loading={isLoading}>Delete</LoadingButton>
         </ButtonGroup>
       </TableCell>
     </>

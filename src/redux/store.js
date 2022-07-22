@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { contactsReducer } from './contacts';
 import { authReducer } from './authorization';
 import { filterReducer } from './filter';
+import contactsApi from 'service/contactsApi';
 
 const filterPersistConfig = {
   key: 'filter',
@@ -19,7 +19,7 @@ const authorizationPersistedReducer = persistReducer(authorizationPersistConfig,
 
 export const store = configureStore({
   reducer: {
-    contacts: contactsReducer,
+    [contactsApi.reducerPath]: contactsApi.reducer,
     authorization: authorizationPersistedReducer,
     filter: filterPersistedReducer,
   },
@@ -28,7 +28,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(contactsApi.middleware),
 });
 
 export const persistor = persistStore(store);

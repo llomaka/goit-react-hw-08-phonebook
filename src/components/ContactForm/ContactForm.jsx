@@ -1,27 +1,25 @@
 import useContactForm from 'hooks/useContactForm';
-import { contactsOperations, contactsSelectors } from 'redux/contacts';
-import { useSelector, useDispatch } from 'react-redux';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
 import useSnackbar from 'hooks/useSnackbar';
 import AddIcon from '@mui/icons-material/Add';
+import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
-  const dispatch = useDispatch();
-  const contacts = useSelector(contactsSelectors.contacts);
-  const isLoading = useSelector(contactsSelectors.isCreating);
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { data } = useGetAllContactsQuery();
+  const [postContact, { isLoading }] = usePostContactMutation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+    if (data?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       setMessage(`${name} is already in Contacts List!`);
       return setOpen();
     }
-    dispatch(contactsOperations.createContact({ name, number }));
+    postContact({ name, number });
     setMessage(`${name} is successfully added to Contacts List!`);
     setOpen();
     resetForm();
