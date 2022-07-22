@@ -2,7 +2,20 @@ import { useState, useId } from 'react';
 import { authOperations } from 'redux/authorization';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import styles from './RegisterForm.module.css';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Snackbar from '@mui/material/Snackbar';
+import useSnackbar from 'hooks/useSnackbar';
+
+const theme = createTheme();
 
 export default function RegisterForm() {
   const [name, setName] = useState('');
@@ -11,6 +24,7 @@ export default function RegisterForm() {
   const id = useId();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -32,86 +46,102 @@ export default function RegisterForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(authOperations.createUser({ name, email, password }));
-    // toast.info(`User ${name} is successfully created!`);
+    setMessage(`User ${name} is successfully created!`);
+    setOpen();
     resetForm();
     navigate('/contacts');
   };
 
   return (
     <>
-      <form
-        className={styles.form}
-        autoComplete='on'
-        onSubmit={handleSubmit}
-      >
-        <div className={styles.fields}>
-          <label
-            className={styles.label}
-            htmlFor={id + 'name'}>
-            Name *
-          </label>
-          <input
-            className={styles.input}
-            type='text'
-            name='name'
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            id={id + 'name'}
-            placeholder='Oleksandra Lomaka'
-            onChange={handleInputChange}
-            value={name}
-          />
-        </div>
-        <div className={styles.fields}>
-          <label
-            className={styles.label}
-            htmlFor={id + 'email'}>
-            Email *
-          </label>
-          <input
-            className={styles.input}
-            type='email'
-            name='email'
-            title='Email address'
-            required
-            id={id + 'email'}
-            placeholder='olomaka@gmail.com'
-            onChange={handleInputChange}
-            value={email}
-          />
-        </div>
-        <div className={styles.fields}>
-          <label
-            className={styles.label}
-            htmlFor={id + 'password'}>
-            Password *
-          </label>
-          <input
-            className={styles.input}
-            type='password'
-            name='password'
-            minLength={8}
-            title='Password must be longer, than 8 characters, contain at least one number and one uppercase character, not contain spaces and parentheses'
-            required
-            id={id + 'password'}
-            placeholder='pa$sw0rD'
-            onChange={handleInputChange}
-            value={password}
-          />
-        </div>
-        <button
-          className={styles.button}
-          type='submit'
-          name='submit_button'
-          // disabled={isLoading}
-        >
-          {/* {isLoading && <ClipLoader size={16} color='#fff' />} */}
-          {/* {!isLoading && <span>Register</span>} */}
-          Register
-        </button>
-      </form>
-      {/* {isSuccess && (<p>{JSON.stringify(data)}</p>)} */}
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h2" variant="h5">
+              Sign up
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete='name'
+                    name='name'
+                    required
+                    fullWidth
+                    id={id + 'name'}
+                    label='Full Name'
+                    autoFocus
+                    type='text'
+                    pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                    placeholder='Oleksandra Lomaka'
+                    onChange={handleInputChange}
+                    value={name}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label='Email Address'
+                    autoComplete='email'
+                    type='email'
+                    name='email'
+                    title='Email address'
+                    id={id + 'email'}
+                    placeholder='olomaka@gmail.com'
+                    onChange={handleInputChange}
+                    value={email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label='Password'
+                    autoComplete="new-password"
+                    type='password'
+                    name='password'
+                    minLength={8}
+                    title='Password must be longer, than 8 characters, preferably contain at least one number and one uppercase character, not contain spaces and parentheses'
+                    id={id + 'password'}
+                    placeholder='pa$sw0rD'
+                    onChange={handleInputChange}
+                    value={password}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href='/goit-react-hw-08-phonebook/login' variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Container>
+        <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
+      </ThemeProvider>
     </>
   );
 };

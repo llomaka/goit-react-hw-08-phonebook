@@ -1,6 +1,6 @@
 import { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/authorization';
 import SharedLayout from './SharedLayout';
 
@@ -12,7 +12,6 @@ export default function App() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrentUser);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   useEffect(() => {
     dispatch(authOperations.getCurrentUserInfo());
@@ -30,7 +29,7 @@ export default function App() {
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
           </>}
-          <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} state={{from: location}} replace />} />
+          <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} replace />} />
         </Route>
       </Routes>
     </div>

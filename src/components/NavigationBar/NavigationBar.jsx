@@ -1,11 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import styles from './NavigationBar.module.css';
+import Box from '@mui/material/Box';
 
 export default function NavigationBar() {
-  const classes = ({ isActive }) => isActive ? [styles.accent, styles.link].join(' ') : [styles.main, styles.link].join(' ');
   return (
-    <nav className={styles.nav}>
-      <NavLink to='/contacts' className={classes}>Contacts</NavLink>
-    </nav>
+    <Box className={styles.nav}>
+      <ContactPhoneIcon />
+      <Typography variant='button'>Contacts</Typography>
+    </Box>
   );
 }

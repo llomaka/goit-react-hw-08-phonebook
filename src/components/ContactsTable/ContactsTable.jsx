@@ -81,7 +81,7 @@ export default function ContactsTable() {
             <TableRow>
               <StyledTableCell>Full Name</StyledTableCell>
               <StyledTableCell>Phone Number</StyledTableCell>
-              <StyledTableCell align='right'>Edit/Delete contact</StyledTableCell>
+              <StyledTableCell align='right'>Edit/Delete Contact</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

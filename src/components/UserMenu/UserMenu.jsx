@@ -1,8 +1,9 @@
 import { authSelectors, authOperations } from 'redux/authorization';
 import { useSelector, useDispatch } from 'react-redux';
-import { ReactComponent as Avatar } from './avatardefault.svg';
 import { clearContacts } from 'redux/contacts/contactsSlice';
-import styles from './UserMenu.module.css';
+import Box from '@mui/material/Box';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
 
 export default function UserMenu() {
   const username = useSelector(authSelectors.getUsername);
@@ -14,10 +15,12 @@ export default function UserMenu() {
   };
 
   return (
-    <div className={styles.menu}>
-      <Avatar width={30} height={30} />
-      <p>Welcome, {username}</p>
-      <p className={styles.button} onClick={() => logout()}>Logout</p>
-    </div>
+    <>
+      <Box sx={{ marginLeft: 'auto', display: 'flex', gap: '10px', alignItems: 'center', fontSize: '20px'}}>
+        <AccountCircleIcon color='primary' fontSize='large' />
+        <p>Welcome, {username}</p>
+        <Button onClick={() => logout()} size='large'>Logout</Button>
+      </Box>
+    </>
   );
 }

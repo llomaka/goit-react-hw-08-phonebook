@@ -1,25 +1,6 @@
-.header {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  font-weight: 600;
-}
-
 .nav {
   display: flex;
   gap: 15px;
   align-items: center;
   font-size: 30px;
-  line-height: 1.8;
-}
-
-.main {
-  color: var(--secondary-text-color);
-}
-
-.accent {
-  color: var(--accent-color);
-  text-decoration: underline;
-}
-
-.link:hover {
-  color: var(--accent-hover-color);
 }
