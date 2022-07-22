@@ -22,7 +22,7 @@ export default function Filter() {
         marginBottom: '15px',
       }}
     >
-      <Typography variant='h6' component='h2'>Find contact by name</Typography>
+      <Typography>Find contact by name</Typography>
         <DebounceInput
           element='input'
           debounceTimeout={700}
