@@ -90,9 +90,9 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
 
 ContactModal.propTypes = {
   contactObj: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    number: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }),
   openModal: PropTypes.bool.isRequired,
   setOpenModal: PropTypes.func.isRequired
