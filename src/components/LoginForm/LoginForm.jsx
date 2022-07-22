@@ -1,11 +1,11 @@
 import { useState, useId } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { authOperations } from 'redux/authorization';
+import { authOperations, authSelectors } from 'redux/authorization';
 import useSnackbar from 'hooks/useSnackbar';
 import Snackbar from '@mui/material/Snackbar';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -24,6 +24,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const isSigningInUser = useSelector(authSelectors.isSigningInUser);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -97,15 +98,16 @@ export default function LoginForm() {
                 onChange={handleInputChange}
                 value={password}
               />
-              <Button
+              <LoadingButton
                 onClick={handleSubmit}
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                loading={isSigningInUser}
               >
                 Sign In
-              </Button>
+              </LoadingButton>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="/goit-react-hw-08-phonebook/register" variant="body2">

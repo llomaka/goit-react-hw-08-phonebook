@@ -1,9 +1,10 @@
 import { authSelectors, authOperations } from 'redux/authorization';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearContacts } from 'redux/contacts/contactsSlice';
-import Box from '@mui/material/Box';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Toolbar from '@mui/material/Toolbar';
 
 export default function UserMenu() {
   const username = useSelector(authSelectors.getUsername);
@@ -15,12 +16,10 @@ export default function UserMenu() {
   };
 
   return (
-    <>
-      <Box sx={{ marginLeft: 'auto', display: 'flex', gap: '10px', alignItems: 'center', fontSize: '20px'}}>
-        <AccountCircleIcon color='primary' fontSize='large' />
-        <p>Welcome, {username}</p>
-        <Button onClick={() => logout()} size='large'>Logout</Button>
-      </Box>
-    </>
+    <Toolbar sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+      <AccountCircleIcon />
+      <Typography>Welcome, {username}</Typography>
+      <Button onClick={() => logout()} >Logout</Button>
+    </Toolbar>
   );
 }

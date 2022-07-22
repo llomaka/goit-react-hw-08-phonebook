@@ -9,6 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import styles from './AuthNavigationBar.module.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme();
 
 export default function AuthNavigationBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -24,11 +27,11 @@ export default function AuthNavigationBar() {
 
   return (
     <>
-      <Toolbar disableGutters>
+      <ThemeProvider theme={theme}>
+      <Toolbar>
         <nav className={styles.nav}>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -61,7 +64,7 @@ export default function AuthNavigationBar() {
               </MenuItem>
               <MenuItem key='login' onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <NavLink to='/login' className={classes}>Login</NavLink>
+                    <NavLink to='/login' className={classes}>Login</NavLink>
                 </Typography>
               </MenuItem>
             </Menu>
@@ -70,20 +73,21 @@ export default function AuthNavigationBar() {
             <Button
               key='register'
               onClick={handleCloseNavMenu}
-              sx={{ my: 2, display: 'block' }}
+                sx={{ display: 'block' }}
             >
               <NavLink to='/register' className={classes}>Register</NavLink>
             </Button>
             <Button
-              key='login'
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, display: 'block' }}
+                key='login'
+                onClick={handleCloseNavMenu}
+                sx={{ display: 'block' }}
             >
               <NavLink to='/login' className={classes}>Login</NavLink>
             </Button>
           </Box>
         </nav>
-      </Toolbar>
+        </Toolbar>
+        </ThemeProvider>
     </>
   );
 }

@@ -2,18 +2,17 @@
   display: flex;
   gap: 15px;
   align-items: center;
-  font-size: 30px;
 }
 
 .main {
-  color: var(--secondary-text-color);
+  color: #7b1fa2;
 }
 
 .accent {
-  color: var(--accent-color);
+  color: #e65100;
   text-decoration: underline;
 }
 
 .link:hover {
-  color: var(--accent-hover-color);
+  color: #e65100;
 }

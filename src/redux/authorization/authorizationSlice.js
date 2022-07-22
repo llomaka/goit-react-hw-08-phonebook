@@ -6,21 +6,37 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isFetchingCurrentUser: false,
+  isCreatingUser: false,
+  isSigningInUser: false,
 };
 
 const authorizationSlice = createSlice ({
   name: 'authorization',
   initialState,
   extraReducers: {
+    [authorizationOperations.createUser.pending](state) {
+      state.isCreatingUser = true;
+    },
     [authorizationOperations.createUser.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.isCreatingUser = false;
+    },
+    [authorizationOperations.createUser.rejected](state) {
+      state.isCreatingUser = false;
+    },
+    [authorizationOperations.loginUser.pending](state) {
+      state.isSigningInUser = true;
     },
     [authorizationOperations.loginUser.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.isSigningInUser = false;
+    },
+    [authorizationOperations.loginUser.rejected](state) {
+      state.isSigningInUser = false;
     },
     [authorizationOperations.logoutUser.fulfilled](state, action) {
       state.user = { name: null, email: null };

@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk('login', async (userObject) => {
     return data;
   } catch (error) {
     console.log(error.message);
-    alert('Authorization error');
+    alert('Authorization error: wrong login or password! Please try again.');
   }
 });
 
