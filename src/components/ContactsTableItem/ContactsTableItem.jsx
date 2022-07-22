@@ -5,20 +5,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
-// import { useSelector } from 'react-redux';
-// import { contactsSelectors } from 'redux/contacts';
 import { useDeleteContactByIdMutation } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 
 export default function ContactsTableItem({ contact, handleEdit, handleDelete }) {
-  // const isDeleting = useSelector(contactsSelectors.isDeleting);
   const [, { isLoading }] = useDeleteContactByIdMutation();
-  // console.log(deleteContact);
 
   return (
     <>
       <TableCell component='th' scope='row'>
-        <Typography paragraph>
+        <Typography>
           {contact.name}
         </Typography>
       </TableCell>
