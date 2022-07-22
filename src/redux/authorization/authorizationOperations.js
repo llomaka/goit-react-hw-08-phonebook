@@ -12,52 +12,51 @@ export const token = {
   },
 };
 
-export const createUser = createAsyncThunk('register', async (userObject) => {
+export const createUser = createAsyncThunk('register', async (userObject, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('users/signup', userObject);
     token.set(data.token);
     return data;
   } catch (error) {
     console.log(error.message);
-    alert('Authorization error');
+    return rejectWithValue(error);
   }
 });
 
-export const loginUser = createAsyncThunk('login', async (userObject) => {
+export const loginUser = createAsyncThunk('login', async (userObject, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('users/login', userObject);
     token.set(data.token);
     return data;
   } catch (error) {
     console.log(error.message);
-    alert('Authorization error: wrong login or password! Please try again.');
+    return rejectWithValue(error);
   }
 });
 
-export const logoutUser = createAsyncThunk('logout', async () => {
+export const logoutUser = createAsyncThunk('logout', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('/users/logout');
     token.unset();
     return data;
   } catch (error) {
     console.log(error.message);
-    alert('Authorization error');
+    return rejectWithValue(error);
   }
 });
 
-export const getCurrentUserInfo = createAsyncThunk('current', async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
+export const getCurrentUserInfo = createAsyncThunk('current', async (_, { rejectWithValue, getState }) => {
+  const state = getState();
   const persistedToken = state.authorization.token;
   if (!persistedToken) {
-    return thunkAPI.rejectWithValue('No logged in user!');
+    return rejectWithValue('No logged in user!');
   }
   token.set(persistedToken);
   try {
     const { data } = await axios.get('/users/current');
     return data;
   } catch (error) {
-    alert('Authorization error');
-    return error;
+    return rejectWithValue(error);
   }
 });
 

@@ -30,12 +30,18 @@ const authorizationSlice = createSlice ({
       state.isSigningInUser = true;
     },
     [authorizationOperations.loginUser.fulfilled](state, action) {
+      if (action.payload.user === 'AxiosError') {
+        console.log('user', action.payload.user, state);
+        return state = initialState;
+      }
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
       state.isSigningInUser = false;
+      console.log(state);
     },
     [authorizationOperations.loginUser.rejected](state) {
+      console.log(state);
       state.isSigningInUser = false;
     },
     [authorizationOperations.logoutUser.fulfilled](state, action) {
