@@ -24,7 +24,7 @@ export default function ContactsTable() {
     data
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
-    ), [data, filter]);
+  ), [data, filter]);
   const { open, message, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
   const [deleteContact, { isLoading }] = useDeleteContactByIdMutation();
@@ -46,6 +46,10 @@ export default function ContactsTable() {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleChangeListPage = (event, newPage) => {
+    setPage(newPage - 1);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -105,9 +109,9 @@ export default function ContactsTable() {
           ))}
       </List>
       <Pagination
-        count={Math.round(filteredContactsList.length / 10)}
-        page={page}
-        onChange={handleChangePage}
+        count={Math.ceil(filteredContactsList.length / 10)}
+        page={page-1}
+        onChange={handleChangeListPage}
         sx={{ display: { xs: 'block', md: 'none' } }}
       />
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
