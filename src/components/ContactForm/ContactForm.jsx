@@ -1,6 +1,7 @@
 import useContactForm from 'hooks/useContactForm';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
+import { Box } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import useSnackbar from 'hooks/useSnackbar';
 import AddIcon from '@mui/icons-material/Add';
@@ -27,7 +28,8 @@ export default function ContactForm() {
 
   return (
     <>
-      <form
+      <Box
+        component='form'
         className={styles.form}
         autoComplete='on'
         onSubmit={handleSubmit}
@@ -62,7 +64,7 @@ export default function ContactForm() {
           value={number}
         />
         <LoadingButton startIcon={<AddIcon />} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}>Add contact</LoadingButton>
-      </form>
+      </Box>
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
     </>
   );
