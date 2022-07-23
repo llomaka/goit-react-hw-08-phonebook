@@ -14,7 +14,7 @@ export default function UserMenu() {
   };
 
   return (
-    <Toolbar sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+    <Toolbar disableGutters sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
       <AccountCircleIcon />
       <Typography>Welcome, {email}</Typography>
       <Button onClick={logout} >Logout</Button>

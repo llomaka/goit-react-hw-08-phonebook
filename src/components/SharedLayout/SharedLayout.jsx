@@ -14,14 +14,14 @@ export default function SharedLayout() {
   return (
     <>
       <Header>
-        <Container maxWidth='xl' sx={{display: 'flex', justifyContent: 'space-between'}}>
+        <Container maxWidth='lg' sx={{display: 'flex', justifyContent: 'space-between'}}>
           <AppNameBar />
           {!isUserLoggedIn && <AuthNavigationBar />}
           {isUserLoggedIn && <UserMenu />}
         </Container>
       </Header>
       <main>
-        <Container maxWidth='xl'>
+        <Container maxWidth='lg'>
           <Suspense fallback={<Typography variant='h2' align='center'>Loading Interface...</Typography>}>
             <Outlet />
           </Suspense>

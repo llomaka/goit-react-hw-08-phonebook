@@ -18,7 +18,7 @@ export default function AuthNavigationBar() {
 
   return (
     <>
-      <Toolbar>
+      <Toolbar disableGutters >
         <nav className={styles.nav}>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
