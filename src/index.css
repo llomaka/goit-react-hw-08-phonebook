@@ -1,33 +1,8 @@
 @import-normalize; /* bring in normalize.css styles */
 
-:root {
-  --primary-text-color: #110000;
-  --primary-background-color: ;
-  --secondary-text-color: #008B8B;
-  --secondary-background-color: ;
-  --accent-color: #8B0000;
-  --accent-hover-color: #570000;
-  --white-color: #ffffff;
-  --triadic--accent-color1: #00008B;
-  --triadic--accent-color1: #008B00;
-}
-
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-}
-
-.visually-hidden {
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  border: 0px;
-  padding: 0px;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  margin: -1px;
 }
 
 * {
