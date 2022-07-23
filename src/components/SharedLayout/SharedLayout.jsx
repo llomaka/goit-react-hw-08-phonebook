@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import AppNameBar from 'components/AppNameBar';
 import { Typography, Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import MainHeader from 'components/MainHeader';
+import Header from 'components/Header';
 import AuthNavigationBar from 'components/AuthNavigationBar';
 import UserMenu from 'components/UserMenu';
 import { useSelector } from 'react-redux';
@@ -13,13 +13,13 @@ export default function SharedLayout() {
 
   return (
     <>
-      <MainHeader>
+      <Header>
         <Container maxWidth='xl' sx={{display: 'flex', justifyContent: 'space-between'}}>
           <AppNameBar />
           {!isUserLoggedIn && <AuthNavigationBar />}
           {isUserLoggedIn && <UserMenu />}
         </Container>
-      </MainHeader>
+      </Header>
       <main>
         <Container maxWidth='xl'>
           <Suspense fallback={<Typography variant='h2' align='center'>Loading Interface...</Typography>}>

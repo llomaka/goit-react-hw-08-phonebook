@@ -44,7 +44,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <Container component="div" maxWidth="xs">
         <Box
           sx={{
             marginTop: 8,

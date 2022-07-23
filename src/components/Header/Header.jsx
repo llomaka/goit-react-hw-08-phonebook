@@ -1,7 +1,7 @@
 import { AppBar, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
 
-export default function MainHeader({ children }) {
+export default function Header({ children }) {
   return (
     <header>
       <AppBar
@@ -18,6 +18,6 @@ export default function MainHeader({ children }) {
   );
 }
 
-MainHeader.propTypes = {
+Header.propTypes = {
   children: PropTypes.node.isRequired,
 };

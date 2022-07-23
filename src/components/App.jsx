@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/authorization';
 import SharedLayout from './SharedLayout';
+import { Box } from '@mui/material';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
@@ -17,7 +18,7 @@ export default function App() {
     dispatch(authOperations.getCurrentUserInfo());
   }, [dispatch]);
 
-  return (!isFetchingCurrentUser && <div
+  return (!isFetchingCurrentUser && <Box
       style={{
         height: '100vh',
       }}
@@ -32,6 +33,6 @@ export default function App() {
           <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} replace />} />
         </Route>
       </Routes>
-    </div>
+    </Box>
   );
 };
