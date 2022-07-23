@@ -19,20 +19,20 @@ export default function App() {
   }, [dispatch]);
 
   return (!isFetchingCurrentUser && <Box
-      style={{
-        height: '100vh',
-      }}
-    >
-      <Routes>
-        <Route path="/*" element={<SharedLayout />}>
-          {isLoggedIn && <Route path='contacts' element={<ContactsPage />} />}
-          {!isLoggedIn && <>
-            <Route path='login' element={<LoginPage />} />
-            <Route path='register' element={<RegisterPage />} />
-          </>}
-          <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} replace />} />
-        </Route>
-      </Routes>
-    </Box>
+    style={{
+      height: '100vh',
+    }}
+  >
+    <Routes>
+      <Route path="/*" element={<SharedLayout />}>
+        {isLoggedIn && <Route path='contacts' element={<ContactsPage />} />}
+        {!isLoggedIn && <>
+          <Route path='login' element={<LoginPage />} />
+          <Route path='register' element={<RegisterPage />} />
+        </>}
+        <Route path='*' element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} replace />} />
+      </Route>
+    </Routes>
+  </Box>
   );
-};
+}
