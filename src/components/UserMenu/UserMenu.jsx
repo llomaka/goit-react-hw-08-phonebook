@@ -2,9 +2,7 @@ import { authSelectors, authOperations } from 'redux/authorization';
 import { changeFilter } from 'redux/filter/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Toolbar from '@mui/material/Toolbar';
+import { Button, Typography, Toolbar } from '@mui/material';
 
 export default function UserMenu() {
   const email = useSelector(authSelectors.getUserEmail);

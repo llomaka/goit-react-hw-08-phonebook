@@ -18,19 +18,12 @@ export default function useSnackbar() {
     });
   };
 
-  const setOpen = () => setSnackbar(prevState => {
-    return {
-      ...prevState,
-      'open': true,
-    };
-  });
-
   const setMessage = (message) => setSnackbar(prevState => {
     return {
-      ...prevState,
+      'open': true,
       'message': message,
     }
   })
 
-  return { open: snackbar.open, setOpen, message: snackbar.message, setMessage, handleClose };
+  return { open: snackbar.open, message: snackbar.message, setMessage, handleClose };
 }

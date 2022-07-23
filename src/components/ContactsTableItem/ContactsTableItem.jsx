@@ -1,10 +1,7 @@
-import Button from '@mui/material/Button';
+import { Button, ButtonGroup, TableCell, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import TableCell from '@mui/material/TableCell';
-import Typography from '@mui/material/Typography';
 import { useDeleteContactByIdMutation } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 

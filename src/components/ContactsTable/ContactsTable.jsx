@@ -1,16 +1,9 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterSelector } from 'redux/filter';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TablePagination from '@mui/material/TablePagination';
+import { Table, TableBody, TableContainer, TableHead, TableRow, TablePagination, Paper, Snackbar } from '@mui/material';
 import StyledTableCell from 'components/StyledTableCell';
 import StyledTableRow from 'components/StyledTableRow';
-import Paper from '@mui/material/Paper';
-import Snackbar from '@mui/material/Snackbar';
 import useSnackbar from 'hooks/useSnackbar';
 import useContactForm from 'hooks/useContactForm';
 import ContactModal from 'components/ContactModal';
@@ -29,7 +22,7 @@ export default function ContactsTable() {
       .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name)
     ), [data, filter]);
-  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { open, message, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
   const [deleteContact] = useDeleteContactByIdMutation();
   const dispatch = useDispatch();
@@ -46,7 +39,6 @@ export default function ContactsTable() {
   const handleDelete = (id, name) => {
     deleteContact(id);
     setMessage(`Contact ${name} is successfully deleted!`);
-    setOpen();
   };
 
   const handleChangePage = (event, newPage) => {

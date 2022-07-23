@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Toolbar, Typography, Menu, MenuItem, IconButton, Button, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import styles from './AuthNavigationBar.module.css';
 
 export default function AuthNavigationBar() {

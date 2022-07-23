@@ -1,5 +1,4 @@
-import Typography from '@mui/material/Typography';
-import Toolbar from '@mui/material/Toolbar';
+import { Typography, Toolbar } from '@mui/material';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import styles from './AppNameBar.module.css';
 

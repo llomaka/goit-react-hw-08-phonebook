@@ -1,13 +1,12 @@
 import { Suspense } from 'react';
 import AppNameBar from 'components/AppNameBar';
-import Typography from '@mui/material/Typography';
+import { Typography, Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import MainHeader from 'components/MainHeader';
 import AuthNavigationBar from 'components/AuthNavigationBar';
 import UserMenu from 'components/UserMenu';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/authorization';
-import Container from '@mui/material/Container';
 
 export default function SharedLayout() {
   const isUserLoggedIn = useSelector(authSelectors.getIsLoggedIn);

@@ -1,8 +1,6 @@
 import useContactForm from 'hooks/useContactForm';
 import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
-import { Box } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
+import { Box, TextField, Snackbar } from '@mui/material';
 import useSnackbar from 'hooks/useSnackbar';
 import AddIcon from '@mui/icons-material/Add';
 import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
@@ -10,19 +8,17 @@ import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
-  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { open, message, setMessage, handleClose } = useSnackbar();
   const { data: contacts } = useGetAllContactsQuery();
   const [postContact, { isLoading }] = usePostContactMutation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
-      setMessage(`${name} is already in Contacts List!`);
-      return setOpen();
+      return setMessage(`${name} is already in Contacts List!`);
     }
     postContact({ name, number });
     setMessage(`${name} is successfully added to Contacts List!`);
-    setOpen();
     resetForm();
   };
 

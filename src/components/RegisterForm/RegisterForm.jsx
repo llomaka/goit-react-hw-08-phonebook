@@ -2,16 +2,9 @@ import { useState, useId } from 'react';
 import { authOperations, authSelectors } from 'redux/authorization';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
+import { Avatar, TextField, Link, Grid, Box, Typography, Container, Snackbar } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Snackbar from '@mui/material/Snackbar';
 import useSnackbar from 'hooks/useSnackbar';
 
 export default function RegisterForm() {
@@ -21,7 +14,7 @@ export default function RegisterForm() {
   const id = useId();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { open, message, setMessage, handleClose } = useSnackbar();
   const isCreatingUser = useSelector(authSelectors.isCreatingUser);
 
   const handleInputChange = event => {
@@ -45,7 +38,6 @@ export default function RegisterForm() {
     event.preventDefault();
     dispatch(authOperations.createUser({ name, email, password }));
     setMessage(`User ${name} is successfully created!`);
-    setOpen();
     resetForm();
     navigate('/contacts');
   };

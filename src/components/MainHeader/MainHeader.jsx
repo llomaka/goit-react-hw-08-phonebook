@@ -1,5 +1,4 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import { AppBar, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function MainHeader({ children }) {

@@ -8,7 +8,7 @@ export default function Filter() {
   const filter = useSelector(filterSelector);
   const dispatch = useDispatch();
 
-  const debouncedFilter = debounce((text) => dispatch(changeFilter(text)), 500);
+  const debouncedFilter = debounce((text) => dispatch(changeFilter(text)), 400);
 
   const onChange = event => {
     debouncedFilter(event.target.value);

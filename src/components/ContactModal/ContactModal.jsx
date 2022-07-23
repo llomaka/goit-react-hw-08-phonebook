@@ -1,21 +1,15 @@
 import { useEffect } from 'react';
-import Button from '@mui/material/Button';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import useContactForm from 'hooks/useContactForm';
 import useSnackbar from 'hooks/useSnackbar';
-import Snackbar from '@mui/material/Snackbar';
 import EditIcon from '@mui/icons-material/Edit';
 import { useEditContactByIdMutation } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 
 export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
-  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { open, message, setMessage, handleClose } = useSnackbar();
   const [editContact, { isLoading }] = useEditContactByIdMutation();
 
 
@@ -31,12 +25,10 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
       return;
     }
     if ((name.toLowerCase() === contactObj.name.toLowerCase()) && (number === contactObj.number)) {
-      setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
-      return setOpen();
+      return setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
     }
     editContact({ id: contactObj.id, name, number });
     setMessage(`Contact ${name} information is successfully changed!`);
-    setOpen();
     resetForm();
     setOpenModal(false);
 };

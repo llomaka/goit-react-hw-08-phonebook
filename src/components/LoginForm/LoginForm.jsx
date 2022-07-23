@@ -3,16 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/authorization';
 import useSnackbar from 'hooks/useSnackbar';
-import Snackbar from '@mui/material/Snackbar';
-import Avatar from '@mui/material/Avatar';
+import { Snackbar, Avatar, TextField, Link, Grid, Box, Typography, Container } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -20,7 +13,7 @@ export default function LoginForm() {
   const id = useId();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { open, message, setOpen, setMessage, handleClose } = useSnackbar();
+  const { open, message, setMessage, handleClose } = useSnackbar();
   const isSigningInUser = useSelector(authSelectors.isSigningInUser);
 
   const handleInputChange = event => {
@@ -41,7 +34,6 @@ export default function LoginForm() {
     event.preventDefault();
     dispatch(authOperations.loginUser({ email, password }));
     setMessage(`User with ${email} is successfully logged in!`);
-    setOpen();
     resetForm();
     navigate('/contacts');
   };
