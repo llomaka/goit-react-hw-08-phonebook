@@ -11,8 +11,7 @@ import useSnackbar from 'hooks/useSnackbar';
 import useContactForm from 'hooks/useContactForm';
 import ContactModal from 'components/ContactModal';
 import ContactsTableItem from 'components/ContactsTableItem';
-import { useGetAllContactsQuery, useDeleteContactByIdMutation } from 'service/contactsApi';
-import contactsApi from 'service/contactsApi';
+import contactsApi, { useGetAllContactsQuery, useDeleteContactByIdMutation } from 'service/contactsApi';
 
 export default function ContactsTable() {
   const [page, setPage] = useState(0);

@@ -4,7 +4,6 @@ import { Box, TextField, Snackbar } from '@mui/material';
 import useSnackbar from 'hooks/useSnackbar';
 import AddIcon from '@mui/icons-material/Add';
 import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
-import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
@@ -29,10 +28,9 @@ export default function ContactForm() {
     <>
       <Box
         component='form'
-        className={styles.form}
         autoComplete='on'
         onSubmit={handleSubmit}
-        sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: '10px', md: '20px' }, alignItems: { xs: 'normal', md: 'flex-end' } }}
+        sx={{ display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: '10px', md: '20px' }, alignItems: { xs: 'normal', md: 'flex-end' }, marginBottom: '30px' }}
       >
         <TextField
           autoFocus
