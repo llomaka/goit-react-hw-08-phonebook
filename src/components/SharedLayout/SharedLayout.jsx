@@ -15,7 +15,7 @@ export default function SharedLayout() {
   return (
     <>
       <Header>
-        <Container maxWidth='lg' sx={{display: 'flex', gap: '5px', justifyContent: 'space-between'}}>
+        <Container maxWidth='lg' sx={{ display: 'flex', gap: '5px', justifyContent: 'space-between' }}>
           <AppNameBar />
           {!isUserLoggedIn && <AuthNavigationBar />}
           {isUserLoggedIn && <UserMenu />}
