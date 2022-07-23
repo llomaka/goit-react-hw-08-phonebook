@@ -1,7 +1,10 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterSelector } from 'redux/filter';
-import { Table, TableBody, TableContainer, TableHead, TableRow, TablePagination, Paper, Snackbar } from '@mui/material';
+import { Table, TableBody, TableContainer, TableHead, TableRow, TablePagination, Paper, Snackbar, List, ListItem, ListItemText, Pagination, ButtonGroup, Button } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import StyledTableCell from 'components/StyledTableCell';
 import StyledTableRow from 'components/StyledTableRow';
 import useSnackbar from 'hooks/useSnackbar';
@@ -24,7 +27,7 @@ export default function ContactsTable() {
     ), [data, filter]);
   const { open, message, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
-  const [deleteContact] = useDeleteContactByIdMutation();
+  const [deleteContact, { isLoading }] = useDeleteContactByIdMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export default function ContactsTable() {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ display: { xs: 'none', md: 'block' } }}>
         <Table sx={{ minWidth: 480 }} aria-label='contacts table' size='small'>
           <TableHead>
             <TableRow>
@@ -84,6 +87,28 @@ export default function ContactsTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        sx={{ display: { xs: 'none', md: 'block' } }}
+      />
+      <List sx={{ display: { xs: 'block', md: 'none' } }}>
+        {filteredContactsList
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map(item => (
+            <ListItem key={item.id}>
+              <ListItemText>
+                {item.name}: {item.number}
+              </ListItemText>
+              <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
+                <Button onClick={() => handleEdit(item)} variant='outlined'><EditIcon /></Button>
+                <LoadingButton onClick={() => handleDelete(item.id, item.name)} variant='contained' loading={isLoading}><DeleteIcon /></LoadingButton>
+              </ButtonGroup>
+            </ListItem>
+          ))}
+      </List>
+      <Pagination
+        count={Math.round(filteredContactsList.length / 10)}
+        page={page}
+        onChange={handleChangePage}
+        sx={{ display: { xs: 'block', md: 'none' } }}
       />
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
       <ContactModal contactObj={contact} openModal={openModal} setOpenModal={setOpenModal} />

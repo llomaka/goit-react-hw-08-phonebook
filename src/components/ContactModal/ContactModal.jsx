@@ -12,7 +12,6 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { open, message, setMessage, handleClose } = useSnackbar();
   const [editContact, { isLoading }] = useEditContactByIdMutation();
 
-
   useEffect(() => {
     setName(contactObj.name);
     setNumber(contactObj.number);

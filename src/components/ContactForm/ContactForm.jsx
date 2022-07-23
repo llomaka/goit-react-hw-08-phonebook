@@ -17,6 +17,9 @@ export default function ContactForm() {
     if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       return setMessage(`${name} is already in Contacts List!`);
     }
+    if (name === '' && number === '') {
+      return setMessage('Please enter values into Name and Number fields!');
+    }
     postContact({ name, number });
     setMessage(`${name} is successfully added to Contacts List!`);
     resetForm();
@@ -29,6 +32,7 @@ export default function ContactForm() {
         className={styles.form}
         autoComplete='on'
         onSubmit={handleSubmit}
+        sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: '10px', md: '20px' }, alignItems: { xs: 'normal', md: 'flex-end' } }}
       >
         <TextField
           autoFocus
@@ -59,9 +63,10 @@ export default function ContactForm() {
           onChange={handleInputChange}
           value={number}
         />
-        <LoadingButton startIcon={<AddIcon />} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}>Add contact</LoadingButton>
+        <LoadingButton sx={{ display: { xs: 'none', md: 'flex' } }} startIcon={<AddIcon />} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}>Add contact</LoadingButton>
+        <LoadingButton sx={{ display: { xs: 'block', md: 'none' }, lineHeight: '0', }} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}><AddIcon /></LoadingButton>
       </Box>
-      <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
+      <Snackbar autoHideDuration={3000} open={open} onClose={handleClose} message={message} />
     </>
   );
 };

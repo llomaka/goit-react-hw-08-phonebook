@@ -22,7 +22,7 @@ export default function AuthNavigationBar() {
         <nav className={styles.nav}>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              aria-label="account of current user"
+              aria-label="user authentication menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}

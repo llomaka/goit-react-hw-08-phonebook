@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function Header({ children }) {
   return (
-    <header>
+    <>
       <AppBar
         enableColorOnDark
         position='fixed'
@@ -14,7 +14,7 @@ export default function Header({ children }) {
         {children}
       </AppBar>
       <Toolbar />
-    </header>
+    </>
   );
 }
 
