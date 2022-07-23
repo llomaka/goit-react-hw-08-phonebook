@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterSelector } from 'redux/filter';
-import { Table, TableBody, TableContainer, TableHead, TableRow, TablePagination, Paper, Snackbar, List, ListItem, ListItemText, Pagination, ButtonGroup, Button } from '@mui/material';
+import { Table, TableBody, TableContainer, TableHead, TableRow, TablePagination, Paper, Snackbar, List, ListItem, ListItemText, Pagination, ButtonGroup, Button, Box } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -95,7 +95,7 @@ export default function ContactsTable() {
       />
       <List sx={{ display: { xs: 'block', md: 'none' } }}>
         {filteredContactsList
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .slice(page * 10, page * 10 + 10)
           .map(item => (
             <ListItem key={item.id}>
               <ListItemText>
@@ -108,12 +108,13 @@ export default function ContactsTable() {
             </ListItem>
           ))}
       </List>
-      <Pagination
-        count={Math.ceil(filteredContactsList.length / 10)}
-        page={page-1}
-        onChange={handleChangeListPage}
-        sx={{ display: { xs: 'block', md: 'none' } }}
-      />
+      <Box my={2} sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
+        <Pagination
+          count={Math.ceil(filteredContactsList.length / 10)}
+          page={page - 1}
+          onChange={handleChangeListPage}
+        />
+      </Box>
       <Snackbar autoHideDuration={1000} open={open} onClose={handleClose} message={message} />
       <ContactModal contactObj={contact} openModal={openModal} setOpenModal={setOpenModal} />
     </>

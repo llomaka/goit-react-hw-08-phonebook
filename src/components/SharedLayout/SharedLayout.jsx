@@ -7,6 +7,7 @@ import AuthNavigationBar from 'components/AuthNavigationBar';
 import UserMenu from 'components/UserMenu';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/authorization';
+import Copyright from 'components/Copyright';
 
 export default function SharedLayout() {
   const isUserLoggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -27,6 +28,9 @@ export default function SharedLayout() {
           </Suspense>
         </Container>
       </main>
+      <footer>
+        <Copyright />
+      </footer>
     </>
   );
 };
