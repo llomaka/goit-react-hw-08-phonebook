@@ -15,6 +15,7 @@ import contactsApi, { useGetAllContactsQuery, useDeleteContactByIdMutation } fro
 
 export default function ContactsTable() {
   const [page, setPage] = useState(0);
+  const [listPage, setListPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [contact, setContact] = useState({});
   const filter = useSelector(filterSelector);
@@ -48,7 +49,7 @@ export default function ContactsTable() {
   };
 
   const handleChangeListPage = (event, newPage) => {
-    setPage(newPage - 1);
+    setListPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -94,7 +95,7 @@ export default function ContactsTable() {
       />
       <List sx={{ display: { xs: 'block', md: 'none' } }}>
         {filteredContactsList
-          .slice(page * 10, page * 10 + 10)
+          .slice((listPage-1) * 10, (listPage-1) * 10 + 10)
           .map(item => (
             <ListItem key={item.id}>
               <ListItemText>
@@ -110,7 +111,7 @@ export default function ContactsTable() {
       <Box my={2} sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
         <Pagination
           count={Math.ceil(filteredContactsList.length / 10)}
-          page={page - 1}
+          page={listPage}
           onChange={handleChangeListPage}
         />
       </Box>
