@@ -4,12 +4,20 @@ import { Box, TextField, Snackbar } from '@mui/material';
 import useSnackbar from 'hooks/useSnackbar';
 import AddIcon from '@mui/icons-material/Add';
 import { usePostContactMutation, useGetAllContactsQuery } from 'service/contactsApi';
+import { useEffect } from 'react';
 
 export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
   const { open, message, setMessage, handleClose } = useSnackbar();
   const { data: contacts } = useGetAllContactsQuery();
-  const [postContact, { isLoading }] = usePostContactMutation();
+  const [postContact, { isLoading, isSuccess }] = usePostContactMutation();
+
+  useEffect(() => {
+    if (isSuccess && name !== '') {
+      setMessage(`${name} is successfully added to Contacts List!`);
+      resetForm();
+    }
+  }, [isSuccess, name, resetForm, setMessage]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,8 +28,6 @@ export default function ContactForm() {
       return setMessage('Please enter values into Name and Number fields!');
     }
     postContact({ name, number });
-    setMessage(`${name} is successfully added to Contacts List!`);
-    resetForm();
   };
 
   return (

@@ -18,6 +18,7 @@ export default function ContactsTable() {
   const [listPage, setListPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [contact, setContact] = useState({});
+  const [deletedContact, setDeletedContact] = useState('');
   const filter = useSelector(filterSelector);
   const { data = [] } = useGetAllContactsQuery();
   const filteredContactsList = useMemo(() =>
@@ -27,21 +28,29 @@ export default function ContactsTable() {
   ), [data, filter]);
   const { open, message, setMessage, handleClose } = useSnackbar();
   const { openModal, setOpenModal } = useContactForm();
-  const [deleteContact, { isLoading }] = useDeleteContactByIdMutation();
+  const [deleteContact, { isLoading, isSuccess, reset }] = useDeleteContactByIdMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(contactsApi.util.resetApiState());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isSuccess && deletedContact !== '') {
+      setMessage(`Contact ${deletedContact} is successfully deleted!`);
+      setDeletedContact('');
+      reset();
+    }
+  },[isSuccess, setMessage, reset, setDeletedContact, deletedContact]);
+
   const handleEdit = (contact) => {
     setContact(contact);
     setOpenModal(true);
   };
 
-  const handleDelete = (id, name) => {
-    deleteContact(id);
-    setMessage(`Contact ${name} is successfully deleted!`);
+  const handleDelete = (contactId, contactName) => {
+    deleteContact(contactId);
+    setDeletedContact(contactName);
   };
 
   const handleChangePage = (event, newPage) => {

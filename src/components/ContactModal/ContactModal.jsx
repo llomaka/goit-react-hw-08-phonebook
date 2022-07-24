@@ -4,18 +4,27 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import useContactForm from 'hooks/useContactForm';
 import useSnackbar from 'hooks/useSnackbar';
 import EditIcon from '@mui/icons-material/Edit';
-import { useEditContactByIdMutation } from 'service/contactsApi';
+import { useEditContactByIdMutation, useGetAllContactsQuery } from 'service/contactsApi';
 import PropTypes from 'prop-types';
 
 export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
+  const { data: contacts } = useGetAllContactsQuery();
   const { open, message, setMessage, handleClose } = useSnackbar();
-  const [editContact, { isLoading }] = useEditContactByIdMutation();
+  const [editContact, { isLoading, isSuccess }] = useEditContactByIdMutation();
 
   useEffect(() => {
     setName(contactObj.name);
     setNumber(contactObj.number);
   }, [contactObj, setName, setNumber]);
+
+  useEffect(() => {
+    if (isSuccess && name !== '') {
+      setMessage(`Contact ${name} information is successfully changed!`);
+      resetForm();
+      setOpenModal(false);
+    }
+  }, [isSuccess, name, resetForm, setMessage, setOpenModal]);
 
   const handleModalClose = (event) => {
     if (event.target.name !== 'edit') {
@@ -26,10 +35,13 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
     if ((name.toLowerCase() === contactObj.name.toLowerCase()) && (number === contactObj.number)) {
       return setMessage(`Please make changes to contact ${name} information or press Cancel to exit Edit Contact dialog.`);
     }
+    if (contacts?.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+      return setMessage(`${name} is already in Contacts List!`);
+    }
+    if (name === '' && number === '') {
+      return setMessage('Please enter values into Name and Number fields!');
+    }
     editContact({ id: contactObj.id, name, number });
-    setMessage(`Contact ${name} information is successfully changed!`);
-    resetForm();
-    setOpenModal(false);
 };
 
   return (
