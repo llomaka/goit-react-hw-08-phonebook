@@ -10,14 +10,15 @@ export default function ContactForm() {
   const { name, number, id, handleInputChange, resetForm } = useContactForm();
   const { open, message, setMessage, handleClose } = useSnackbar();
   const { data: contacts } = useGetAllContactsQuery();
-  const [postContact, { isLoading, isSuccess }] = usePostContactMutation();
+  const [postContact, { isLoading, isSuccess, reset }] = usePostContactMutation();
 
   useEffect(() => {
     if (isSuccess && name !== '') {
       setMessage(`${name} is successfully added to Contacts List!`);
       resetForm();
+      reset();
     }
-  }, [isSuccess, name, resetForm, setMessage]);
+  }, [isSuccess, name, resetForm, setMessage, reset]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

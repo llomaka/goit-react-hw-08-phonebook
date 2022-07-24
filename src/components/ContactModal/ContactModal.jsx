@@ -11,7 +11,7 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
   const { name, setName, number, setNumber, id, handleInputChange, resetForm } = useContactForm();
   const { data: contacts } = useGetAllContactsQuery();
   const { open, message, setMessage, handleClose } = useSnackbar();
-  const [editContact, { isLoading, isSuccess }] = useEditContactByIdMutation();
+  const [editContact, { isLoading, isSuccess, reset }] = useEditContactByIdMutation();
 
   useEffect(() => {
     setName(contactObj.name);
@@ -22,9 +22,10 @@ export default function ContactModal({ contactObj, openModal, setOpenModal }) {
     if (isSuccess && name !== '') {
       setMessage(`Contact ${name} information is successfully changed!`);
       resetForm();
+      reset();
       setOpenModal(false);
     }
-  }, [isSuccess, name, resetForm, setMessage, setOpenModal]);
+  }, [isSuccess, name, resetForm, setMessage, setOpenModal, reset]);
 
   const handleModalClose = (event) => {
     if (event.target.name !== 'edit') {
