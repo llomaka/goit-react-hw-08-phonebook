@@ -44,7 +44,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <Container component="div" maxWidth="xs">
+      <Container component='div' maxWidth='xs'>
         <Box
           sx={{
             marginTop: 8,
@@ -56,10 +56,10 @@ export default function RegisterForm() {
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h2" variant="h5">
+          <Typography component='h2' variant='h5'>
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -98,7 +98,7 @@ export default function RegisterForm() {
                   required
                   fullWidth
                   label='Password'
-                  autoComplete="new-password"
+                  autoComplete='new-password'
                   type='password'
                   name='password'
                   minLength={8}
@@ -111,18 +111,18 @@ export default function RegisterForm() {
               </Grid>
             </Grid>
             <LoadingButton
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{ mt: 3, mb: 2 }}
               onClick={handleSubmit}
               loading={isCreatingUser}
             >
               Sign Up
             </LoadingButton>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link href='/goit-react-hw-08-phonebook/login' variant="body2">
+                <Link href='/goit-react-hw-08-phonebook/login' variant='body2'>
                   Already have an account? Sign in
                 </Link>
               </Grid>

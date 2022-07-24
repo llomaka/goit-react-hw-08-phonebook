@@ -85,7 +85,7 @@ export default function ContactsTable() {
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
-        component="div"
+        component='div'
         count={filteredContactsList.length}
         rowsPerPage={rowsPerPage}
         page={page}

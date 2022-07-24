@@ -29,16 +29,16 @@ export default function UserMenu() {
       <Box>
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-user"
-            aria-haspopup="true"
+            aria-label='account of current user'
+            aria-controls='menu-user'
+            aria-haspopup='true'
             onClick={handleOpenNavMenu}
-            color="inherit"
+            color='inherit'
           >
             <AccountCircleIcon />
           </IconButton>
           <Menu
-            id="menu-user"
+            id='menu-user'
             anchorEl={anchorElNav}
             anchorOrigin={{
               vertical: 'bottom',

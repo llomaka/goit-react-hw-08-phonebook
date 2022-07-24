@@ -40,7 +40,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <Container component="div" maxWidth="xs">
+      <Container component='div' maxWidth='xs'>
         <Box
           sx={{
             marginTop: 8,
@@ -52,16 +52,16 @@ export default function LoginForm() {
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h2" variant="h5">
+          <Typography component='h2' variant='h5'>
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              label="Email Address"
-              autoComplete="email"
+              label='Email Address'
+              autoComplete='email'
               autoFocus
               type='email'
               name='email'
@@ -72,11 +72,11 @@ export default function LoginForm() {
               value={email}
             />
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              label="Password"
-              autoComplete="current-password"
+              label='Password'
+              autoComplete='current-password'
               type='password'
               name='password'
               minLength={8}
@@ -88,17 +88,17 @@ export default function LoginForm() {
             />
             <LoadingButton
               onClick={handleSubmit}
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{ mt: 3, mb: 2 }}
               loading={isSigningInUser}
             >
               Sign In
             </LoadingButton>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link href="/goit-react-hw-08-phonebook/register" variant="body2">
+                <Link href='/goit-react-hw-08-phonebook/register' variant='body2'>
                   Don't have an account? Sign Up
                 </Link>
               </Grid>

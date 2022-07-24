@@ -22,16 +22,16 @@ export default function AuthNavigationBar() {
         <nav className={styles.nav}>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              aria-label="user authentication menu"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              aria-label='user authentication menu'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color='inherit'
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -48,12 +48,12 @@ export default function AuthNavigationBar() {
                 display: { xs: 'block', md: 'none' },
               }}>
               <MenuItem key='register' onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
+                <Typography textAlign='center'>
                   <NavLink to='/register' className={classes}>Register</NavLink>
                 </Typography>
               </MenuItem>
               <MenuItem key='login' onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
+                <Typography textAlign='center'>
                   <NavLink to='/login' className={classes}>Login</NavLink>
                 </Typography>
               </MenuItem>
