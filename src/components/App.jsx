@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/authorization';
 import SharedLayout from './SharedLayout';
-import { Box } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
@@ -23,6 +23,7 @@ export default function App() {
       height: '100vh',
     }}
   >
+    <CssBaseline />
     <Routes>
       <Route path="/*" element={<SharedLayout />}>
         {isLoggedIn && <Route path='contacts' element={<ContactsPage />} />}
