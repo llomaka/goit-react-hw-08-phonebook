@@ -41,7 +41,7 @@ export default function ContactsTable() {
       setDeletedContact('');
       reset();
     }
-  },[isSuccess, setMessage, reset, setDeletedContact, deletedContact]);
+  }, [isSuccess, setMessage, reset, setDeletedContact, deletedContact]);
 
   const handleEdit = (contact) => {
     setContact(contact);
@@ -51,6 +51,13 @@ export default function ContactsTable() {
   const handleDelete = (contactId, contactName) => {
     deleteContact(contactId);
     setDeletedContact(contactName);
+    if (page > (Math.floor(filteredContactsList.length / rowsPerPage) - 1)) {
+      setPage(0);
+      return;
+    }
+    if (listPage > Math.floor(filteredContactsList.length / 10)) {
+      setListPage(Math.floor(filteredContactsList.length / 10));
+    }
   };
 
   const handleChangePage = (event, newPage) => {
