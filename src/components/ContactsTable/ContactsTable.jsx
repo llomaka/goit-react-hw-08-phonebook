@@ -118,8 +118,8 @@ export default function ContactsTable() {
                 {item.name}: {item.number}
               </ListItemText>
               <ButtonGroup variant='contained' aria-label='edit/delete contact button group'>
-                <Button onClick={() => handleEdit(item)} variant='outlined'><EditIcon /></Button>
-                <LoadingButton onClick={() => handleDelete(item.id, item.name)} variant='contained' loading={isLoading}><DeleteIcon /></LoadingButton>
+                <Button onClick={() => handleEdit(item)} variant='outlined' aria-label='Edit Contact' ><EditIcon /></Button>
+                <LoadingButton onClick={() => handleDelete(item.id, item.name)} variant='contained' loading={isLoading} aria-label='Delete Contact' ><DeleteIcon /></LoadingButton>
               </ButtonGroup>
             </ListItem>
           ))}

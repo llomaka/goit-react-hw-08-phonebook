@@ -69,7 +69,7 @@ export default function ContactForm() {
           value={number}
         />
         <LoadingButton sx={{ display: { xs: 'none', md: 'flex' } }} startIcon={<AddIcon />} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}>Add contact</LoadingButton>
-        <LoadingButton sx={{ display: { xs: 'block', md: 'none' }, lineHeight: '0', }} type='submit' onClick={handleSubmit} name='submit_button' variant='contained' loading={isLoading}><AddIcon /></LoadingButton>
+        <LoadingButton sx={{ display: { xs: 'block', md: 'none' }, lineHeight: '0', }} type='submit' onClick={handleSubmit} name='Add Contact' aria-label='Add Contact' variant='contained' loading={isLoading}><AddIcon /></LoadingButton>
       </Box>
       <Snackbar autoHideDuration={3000} open={open} onClose={handleClose} message={message} />
     </>

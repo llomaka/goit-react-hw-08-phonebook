@@ -30,6 +30,8 @@ export default function Filter() {
         variant='standard'
         type='text'
         name='filter'
+        aria-label='Contacts Filter'
+        role='textbox'
         onChange={onChange}
         value={filter}
       />
