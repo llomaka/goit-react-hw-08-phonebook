@@ -1,9 +1,10 @@
 import { useState, useId } from 'react';
 import { authOperations, authSelectors } from 'redux/authorization';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, TextField, Link, Grid, Box, Typography, Container } from '@mui/material';
+import { Avatar, TextField, Link, Grid, Box, Typography, Container, InputAdornment, IconButton } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function RegisterForm() {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ export default function RegisterForm() {
   const id = useId();
   const dispatch = useDispatch();
   const isCreatingUser = useSelector(authSelectors.isCreatingUser);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -28,6 +30,10 @@ export default function RegisterForm() {
     event.preventDefault();
     dispatch(authOperations.createUser({ name, email, password }));
   };
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   return (
     <Container component='div' maxWidth='xs'>
@@ -85,7 +91,7 @@ export default function RegisterForm() {
                 fullWidth
                 label='Password'
                 autoComplete='new-password'
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 name='password'
                 minLength={8}
                 title='Password must be longer, than 8 characters, preferably contain at least one number and one uppercase character, not contain spaces and parentheses'
@@ -93,6 +99,18 @@ export default function RegisterForm() {
                 placeholder='pa$sw0rD'
                 onChange={handleInputChange}
                 value={password}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>,
+                }}
               />
             </Grid>
           </Grid>
