@@ -48,13 +48,14 @@ export default function LoginForm() {
         <Typography component='h2' variant='h5'>
           Sign in
         </Typography>
-        <Box component='form' autoComplete='off' onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin='normal'
             required
             fullWidth
             label='Email Address'
             autoFocus
+            autoComplete='email'
             type='email'
             name='email'
             title='Email address'
@@ -67,6 +68,7 @@ export default function LoginForm() {
             margin='normal'
             required
             fullWidth
+            autoComplete='new-password'
             label='Password'
             type={showPassword ? 'text' : 'password'}
             name='password'
